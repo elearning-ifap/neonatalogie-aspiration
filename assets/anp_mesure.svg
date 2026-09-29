@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" role="img" aria-label="Repères de mesure avant ANP : aile du nez vers coin interne de l’œil ; si insuffisant, bout du nez vers lobe de l’oreille">
+<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:18px;font-weight:750}.s{font-size:14px;fill:#5d7986}.skin{fill:#f7e6dc;stroke:#d5b4a3;stroke-width:2}.a{fill:none;stroke:#0b8d99;stroke-width:5;stroke-linecap:round}.b{fill:none;stroke:#e9853c;stroke-width:5;stroke-linecap:round}</style></defs>
+<text x="38" y="34" class="t cap">ANP · MESURER AVANT D’INTRODUIRE</text>
+<g transform="translate(44 64)"><rect width="832" height="300" rx="22" fill="#f8fbfb" stroke="#d9e6e8"/><path d="M270 74 Q446 20 596 95 Q694 145 644 247 Q606 290 502 286 Q376 305 287 250 Q222 211 270 74" class="skin"/><circle cx="430" cy="139" r="7" fill="#12384b"/><path d="M512 151 q31 0 45 12" fill="none" stroke="#12384b" stroke-width="3" stroke-linecap="round"/><ellipse cx="598" cy="198" rx="19" ry="29" fill="#f5ded2" stroke="#d5b4a3" stroke-width="2"/>
+<path d="M511 159 C482 140 455 136 438 139" class="a"/><circle cx="511" cy="159" r="5" fill="#0b8d99"/><circle cx="438" cy="139" r="5" fill="#0b8d99"/>
+<path d="M529 172 C557 180 575 190 596 198" class="b"/><circle cx="529" cy="172" r="5" fill="#e9853c"/><circle cx="596" cy="198" r="5" fill="#e9853c"/>
+<g transform="translate(34 36)"><text class="t h">Repère principal</text><text y="24" class="t s">Aile du nez → coin interne de l’œil</text><line x1="0" y1="40" x2="110" y2="40" class="a"/></g>
+<g transform="translate(34 225)"><text class="t h">Si insuffisant</text><text y="24" class="t s">Bout du nez → lobe de l’oreille</text><text y="48" class="t s">Longueur à ne jamais dépasser</text><line x1="0" y1="64" x2="110" y2="64" class="b"/></g></g>
+</svg>

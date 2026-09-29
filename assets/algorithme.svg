@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 455" role="img" aria-label="Algorithme : évaluer, DRP en première intention, réévaluer, arrêter si efficace ou envisager une aspiration ciblée si nécessaire">
+<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:20px;font-weight:750}.s{font-size:14px;fill:#597784}.step{fill:white;stroke:#cfe0e4;stroke-width:2}.core{fill:#0b8d99}.coret{fill:white}.flow{fill:none;stroke:#9ec7cc;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.good{fill:#eaf5ef;stroke:#cfe6d9;stroke-width:2}.warn{fill:#fff2e8;stroke:#efd2bd;stroke-width:2}</style></defs>
+<text x="36" y="34" class="t cap">CONDUITE À TENIR FACE À UN ENCOMBREMENT</text>
+<g transform="translate(320 58)"><rect width="320" height="60" rx="15" class="step"/><text x="160" y="37" text-anchor="middle" class="t h">Évaluer la situation</text></g>
+<path d="M480 120 V151" class="flow"/>
+<g transform="translate(320 153)"><rect width="320" height="74" rx="16" class="core"/><text x="160" y="31" text-anchor="middle" class="t h coret">DRP</text><text x="160" y="55" text-anchor="middle" class="t s coret">geste de première intention</text></g>
+<path d="M480 229 V260" class="flow"/>
+<g transform="translate(320 262)"><rect width="320" height="60" rx="15" class="step"/><text x="160" y="37" text-anchor="middle" class="t h">Réévaluer</text></g>
+<path d="M480 324 V344 H240 V365" class="flow"/><path d="M480 344 H720 V365" class="flow"/>
+<g transform="translate(56 365)"><rect width="368" height="70" rx="16" class="good"/><text x="26" y="30" class="t h">DRP efficace</text><text x="26" y="53" class="t s">Voies aériennes libérées → arrêter le soin.</text></g>
+<g transform="translate(536 365)"><rect width="368" height="70" rx="16" class="warn"/><text x="26" y="30" class="t h">DRP insuffisante</text><text x="26" y="53" class="t s">Critères cliniques → aspiration ciblée si indiquée.</text></g>
+</svg>

@@ -1,0 +1,2351 @@
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/DESIGN_REVIEW.md /mnt/data/aspiration_github_v2/DESIGN_REVIEW.md
+--- /mnt/data/aspiration_scorm_v1/DESIGN_REVIEW.md	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/aspiration_github_v2/DESIGN_REVIEW.md	2026-09-29 03:05:42.962285053 +0000
+@@ -0,0 +1,102 @@
++# Revue design haut de gamme — v2
++
++## Diagnostic de la v1
++
++Les principaux marqueurs donnant une impression générique ou inachevée étaient :
++
++- présence répétée de la mention « prototype v1 » dans l’interface apprenant ;
++- shell proche d’un tableau de bord administratif, avec hiérarchie typographique peu différenciée ;
++- grand nombre de cartes visuellement équivalentes, produisant un effet « card soup » ;
++- illustrations hétérogènes et très schématiques, avec une esthétique proche d’un prototype généré automatiquement ;
++- navigation mobile supprimée au lieu d’être réellement adaptée ;
++- absence de reprise visuelle des réponses après rechargement ;
++- simulation des constantes aléatoire, donc peu reproductible ;
++- utilisation d’une alerte navigateur native en fin de parcours ;
++- progressions, états actifs et feedbacks fonctionnels mais peu raffinés ;
++- double média ANP manquant de cohérence graphique ;
++- notes de production trop visibles dans le parcours apprenant.
++
++## Changements appliqués
++
++### `index.html`
++
++- remplacement du bandeau initial par un en-tête produit plus compact : marque, service, titre court, chapitre courant, compteur et progression ;
++- ajout d’un vrai menu mobile avec panneau latéral et fond d’occultation ;
++- ajout d’un lien d’évitement vers le contenu ;
++- simplification du titre affiché dans le chrome de l’application ;
++- suppression des mentions « prototype v1 » de l’expérience principale ;
++- remplacement du panneau hero générique par `assets/hero_signal.svg` ;
++- conservation des trois écarts métier, mais avec une rédaction de revue moins « chantier » ;
++- remplacement de la note finale de prototype par un renvoi propre vers `VALIDATION_METIER.md` ;
++- ajout d’un toast accessible pour la fin du parcours.
++
++### `assets/style.css`
++
++Le fichier a été entièrement réécrit autour d’un design system cohérent :
++
++- police système haut de gamme : `Segoe UI Variable`, `Aptos`, `Segoe UI` ;
++- palette resserrée : bleu nuit, turquoise clinique, orange de vigilance, verts/rouges fonctionnels ;
++- échelle typographique plus éditoriale, avec grand titre d’accueil et hiérarchie stable ;
++- espacements harmonisés et grille responsive ;
++- cartes secondaires plus discrètes, avec filets fins et accent minimal ;
++- choix QCM avec repères A/B/C séparés visuellement ;
++- cases à cocher personnalisées par état plutôt que par effets décoratifs ;
++- feedbacks avec hiérarchie correcte/attention, sans emoji ;
++- navigation latérale avec section active et déverrouillage visuel ;
++- footer plus compact ;
++- animations limitées à des transitions fonctionnelles de 150 à 220 ms ;
++- prise en charge de `prefers-reduced-motion` ;
++- responsive à 860 px et 520 px ;
++- tiroir de navigation mobile ;
++- absence de débordement horizontal à 390 px.
++
++### `assets/app.js`
++
++- découplage du code du SCORM : utilisation de l’interface `TRACKING` ;
++- progression locale conservée via `localStorage` ;
++- réouverture sur le dernier écran ;
++- restauration des choix QCM, cases cochées, réglage de pression et ordre DRP ;
++- restauration d’une évaluation finale déjà terminée ou partiellement commencée ;
++- chapitre courant et libellé de footer mis à jour dynamiquement ;
++- élément actif du menu calculé à partir de l’écran courant ;
++- ouverture/fermeture accessible du menu mobile ;
++- remplacement de l’`alert()` natif par un toast intégré ;
++- simulation FC/SpO₂ rendue déterministe pour une expérience pédagogique reproductible ;
++- arrêt du timer lorsque l’apprenant quitte l’écran de surveillance ;
++- mise à jour du libellé plein écran en fonction de l’état réel ;
++- conservation des mêmes fonctions d’interaction pour faciliter le futur packaging SCORM.
++
++### `assets/tracking.js`
++
++Nouveau fichier. Il définit une interface de suivi neutre pour la version GitHub. Au moment du packaging Moodle, cette interface pourra être branchée sur SCORM sans réécrire les interactions pédagogiques.
++
++### Illustrations SVG
++
++Réécriture complète de :
++
++- `hero_signal.svg` ;
++- `observation.svg` ;
++- `algorithme.svg` ;
++- `drp_position.svg` ;
++- `anp_mesure.svg` ;
++- `anp_geste.svg` ;
++- `aop_geste.svg`.
++
++Les visuels utilisent désormais la même palette, la même typographie, les mêmes rayons, la même épaisseur de trait et la même logique éditoriale. Les portraits ou images décoratives ont été volontairement évités : ils n’apportaient pas d’information clinique et risquaient de donner un aspect « stock » ou artificiel.
++
++## Tests réalisés
++
++- 23 écrans présents ;
++- absence d’erreur JavaScript lors de la recette navigateur ;
++- absence de débordement horizontal en 1440 × 1000 et 390 × 844 ;
++- menu mobile ouvrable et fermable ;
++- positionnement initial : feedback correct ;
++- activité d’observation : validation correcte ;
++- réglage de pression à 90 mbar pour prématuré : validation correcte ;
++- situation finale : 8 réponses conformes → score 100 % ;
++- mode responsive et footer fixe vérifiés ;
++- les fichiers de ressources restent accessibles depuis la conclusion.
++
++## Fichier de différence exact
++
++`CHANGES_EXACT.patch` contient le diff textuel complet entre la v1 et cette v2 pour les fichiers de code et SVG. Les ressources binaires sont exclues du patch.
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/NOTES_VALIDATION_METIER.md /mnt/data/aspiration_github_v2/NOTES_VALIDATION_METIER.md
+--- /mnt/data/aspiration_scorm_v1/NOTES_VALIDATION_METIER.md	2026-09-29 02:51:26.296634930 +0000
++++ /mnt/data/aspiration_github_v2/NOTES_VALIDATION_METIER.md	1970-01-01 00:00:00.000000000 +0000
+@@ -1,7 +0,0 @@
+-# Prototype v1 - points métier à valider avant publication
+-
+-1. DRP : préciser le terme « souris » et la consigne exacte associée à l’aspiration dans la narine opposée.
+-2. AOP : confirmer la mention « quelques gouttes d’EPPI » avant l’introduction.
+-3. AOP : harmoniser « bébé intubé » (algorithme) avec « bébé intubé et sédaté » (tableau technique).
+-
+-Le prototype conserve ces trois écarts explicitement afin de respecter la règle de couverture intégrale du corpus sans inventer de correction métier.
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/README.md /mnt/data/aspiration_github_v2/README.md
+--- /mnt/data/aspiration_scorm_v1/README.md	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/aspiration_github_v2/README.md	2026-09-29 03:05:42.959835708 +0000
+@@ -0,0 +1,35 @@
++# Aspiration en néonatologie — version web v2
++
++Formation clinique interactive destinée à une publication web/GitHub avant packaging SCORM pour Moodle.
++
++## Utilisation
++
++Aucune compilation n’est nécessaire. Le site est statique :
++
++- `index.html` : parcours principal ;
++- `assets/style.css` : design system et responsive ;
++- `assets/app.js` : navigation, interactions, reprise locale et évaluation ;
++- `assets/tracking.js` : adaptateur de suivi web, prévu pour être remplacé/étendu au moment du packaging SCORM ;
++- `assets/*.svg` : schémas pédagogiques ;
++- `resources/` : protocole, fiche réflexe et matrice de couverture.
++
++## Publication GitHub Pages
++
++1. Décompresser le ZIP à la racine d’un dépôt GitHub.
++2. Conserver `index.html` à la racine.
++3. Dans GitHub : **Settings → Pages**.
++4. Choisir la branche de publication et le dossier racine `/`.
++
++Le parcours ne dépend d’aucune bibliothèque externe ni d’aucune police distante.
++
++## Suivi dans cette version
++
++La progression est conservée sur l’appareil via `localStorage`. Le futur packaging SCORM pourra conserver la même interface de suivi en remplaçant l’adaptateur `assets/tracking.js`.
++
++## Validation métier avant diffusion apprenant
++
++Voir `VALIDATION_METIER.md`. Trois formulations du protocole restent à confirmer : « souris » pour la DRP, « EPPI » pour l’AOP et la cohérence « bébé intubé » / « bébé intubé et sédaté ».
++
++## Revue design
++
++Voir `DESIGN_REVIEW.md` pour l’audit UX/UI et `CHANGES_EXACT.patch` pour le différentiel de code complet par rapport à la v1.
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/VALIDATION_METIER.md /mnt/data/aspiration_github_v2/VALIDATION_METIER.md
+--- /mnt/data/aspiration_scorm_v1/VALIDATION_METIER.md	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/aspiration_github_v2/VALIDATION_METIER.md	2026-09-29 03:05:42.961382926 +0000
+@@ -0,0 +1,9 @@
++# Points métier à valider avant diffusion apprenant
++
++Le corpus est conservé sans correction implicite. Trois formulations nécessitent un arbitrage métier :
++
++1. **DRP — terme « souris »** : préciser le dispositif et la consigne exacte associés à « aspirer dans la narine opposée à l’aide de la souris ».
++2. **AOP — mention « EPPI »** : confirmer l’instillation de « quelques gouttes d’EPPI » avant l’introduction et la formulation à afficher aux apprenants.
++3. **AOP — indication chez le bébé intubé** : harmoniser « bébé intubé » dans l’algorithme avec « bébé intubé et sédaté » dans le tableau technique.
++
++Ces trois points restent visibles de manière contrôlée dans la version de revue afin de garantir la couverture intégrale du corpus sans inventer de règle clinique.
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/algorithme.svg /mnt/data/aspiration_github_v2/assets/algorithme.svg
+--- /mnt/data/aspiration_scorm_v1/assets/algorithme.svg	2026-09-29 02:45:00.697062301 +0000
++++ /mnt/data/aspiration_github_v2/assets/algorithme.svg	2026-09-29 02:57:49.134809953 +0000
+@@ -1,13 +1,12 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" role="img" aria-label="Algorithme de décision : évaluer, réaliser une DRP, réévaluer, arrêter si efficace ou envisager une aspiration ciblée si insuffisant avec critères cliniques.">
+-<style>.t{font:700 28px Arial;fill:#143c55}.s{font:500 21px Arial;fill:#143c55}.w{font:700 22px Arial;fill:white}.arrow{stroke:#337d96;stroke-width:6;fill:none;marker-end:url(#a)}.box{rx:18;ry:18;stroke:#2b6f88;stroke-width:2}.small{font:500 18px Arial;fill:#143c55}</style>
+-<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#337d96"/></marker></defs>
+-<text x="490" y="42" text-anchor="middle" class="t">Conduite à tenir face à un encombrement</text>
+-<rect x="330" y="70" width="320" height="60" fill="#e8f3f7" class="box"/><text x="490" y="108" text-anchor="middle" class="s">Évaluer la situation</text>
+-<path d="M490 132 V172" class="arrow"/>
+-<rect x="330" y="175" width="320" height="72" fill="#137f91" class="box"/><text x="490" y="207" text-anchor="middle" class="w">DRP</text><text x="490" y="232" text-anchor="middle" class="w">en première intention</text>
+-<path d="M490 249 V289" class="arrow"/>
+-<rect x="330" y="292" width="320" height="58" fill="#e8f3f7" class="box"/><text x="490" y="329" text-anchor="middle" class="s">Réévaluer</text>
+-<path d="M450 351 C390 370 310 375 240 386" class="arrow"/><path d="M530 351 C600 370 670 375 745 386" class="arrow"/>
+-<rect x="60" y="389" width="310" height="62" fill="#dff1df" stroke="#4b8b4b" class="box"/><text x="215" y="416" text-anchor="middle" class="s">Voies aériennes libérées</text><text x="215" y="442" text-anchor="middle" class="s">→ STOP</text>
+-<rect x="610" y="389" width="310" height="62" fill="#fff0e4" stroke="#d2742b" class="box"/><text x="765" y="414" text-anchor="middle" class="small">Insuffisant + critères cliniques</text><text x="765" y="441" text-anchor="middle" class="s">→ aspiration ciblée</text>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 455" role="img" aria-label="Algorithme : évaluer, DRP en première intention, réévaluer, arrêter si efficace ou envisager une aspiration ciblée si nécessaire">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:20px;font-weight:750}.s{font-size:14px;fill:#597784}.step{fill:white;stroke:#cfe0e4;stroke-width:2}.core{fill:#0b8d99}.coret{fill:white}.flow{fill:none;stroke:#9ec7cc;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.good{fill:#eaf5ef;stroke:#cfe6d9;stroke-width:2}.warn{fill:#fff2e8;stroke:#efd2bd;stroke-width:2}</style></defs>
++<text x="36" y="34" class="t cap">CONDUITE À TENIR FACE À UN ENCOMBREMENT</text>
++<g transform="translate(320 58)"><rect width="320" height="60" rx="15" class="step"/><text x="160" y="37" text-anchor="middle" class="t h">Évaluer la situation</text></g>
++<path d="M480 120 V151" class="flow"/>
++<g transform="translate(320 153)"><rect width="320" height="74" rx="16" class="core"/><text x="160" y="31" text-anchor="middle" class="t h coret">DRP</text><text x="160" y="55" text-anchor="middle" class="t s coret">geste de première intention</text></g>
++<path d="M480 229 V260" class="flow"/>
++<g transform="translate(320 262)"><rect width="320" height="60" rx="15" class="step"/><text x="160" y="37" text-anchor="middle" class="t h">Réévaluer</text></g>
++<path d="M480 324 V344 H240 V365" class="flow"/><path d="M480 344 H720 V365" class="flow"/>
++<g transform="translate(56 365)"><rect width="368" height="70" rx="16" class="good"/><text x="26" y="30" class="t h">DRP efficace</text><text x="26" y="53" class="t s">Voies aériennes libérées → arrêter le soin.</text></g>
++<g transform="translate(536 365)"><rect width="368" height="70" rx="16" class="warn"/><text x="26" y="30" class="t h">DRP insuffisante</text><text x="26" y="53" class="t s">Critères cliniques → aspiration ciblée si indiquée.</text></g>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/anp_geste.svg /mnt/data/aspiration_github_v2/assets/anp_geste.svg
+--- /mnt/data/aspiration_scorm_v1/assets/anp_geste.svg	2026-09-29 02:45:00.697176070 +0000
++++ /mnt/data/aspiration_github_v2/assets/anp_geste.svg	2026-09-29 02:57:49.142741512 +0000
+@@ -1,9 +1,8 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 300" role="img" aria-label="Trois temps de l'ANP : introduire sans aspirer, respecter le repère sans forcer, aspirer uniquement au retrait.">
+-<style>.t{font:700 24px Arial;fill:#143c55}.n{font:700 30px Arial;fill:white}.s{font:600 19px Arial;fill:#143c55}</style>
+-<text x="490" y="35" text-anchor="middle" class="t">ANP : le geste en trois temps</text>
+-<g transform="translate(55,75)"><circle cx="55" cy="55" r="45" fill="#16859a"/><text x="55" y="65" text-anchor="middle" class="n">1</text><text x="115" y="48" class="s">Introduire doucement</text><text x="115" y="76" class="s">SANS aspirer</text></g>
+-<g transform="translate(355,75)"><circle cx="55" cy="55" r="45" fill="#16859a"/><text x="55" y="65" text-anchor="middle" class="n">2</text><text x="115" y="48" class="s">Respecter le repère</text><text x="115" y="76" class="s">Ne jamais forcer</text></g>
+-<g transform="translate(665,75)"><circle cx="55" cy="55" r="45" fill="#e9842d"/><text x="55" y="65" text-anchor="middle" class="n">3</text><text x="115" y="48" class="s">Aspirer uniquement</text><text x="115" y="76" class="s">au retrait, lentement</text></g>
+-<path d="M300 130 H350 M610 130 H660" stroke="#7aa6b6" stroke-width="5"/>
+-<text x="490" y="250" text-anchor="middle" class="s">Durée totale du geste : 5 à 10 secondes maximum. Ne pas réintroduire la sonde immédiatement.</text>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" role="img" aria-label="ANP : introduire sans aspirer, respecter le repère sans forcer, aspirer uniquement au retrait">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:17px;font-weight:750}.s{font-size:13px;fill:#607b88}.card{fill:#fff;stroke:#d8e5e8;stroke-width:2}.n{fill:#0b8d99}.nw{font-size:14px;font-weight:800;fill:white}</style></defs>
++<text x="38" y="32" class="t cap">ANP · GESTE EN TROIS TEMPS</text>
++<g transform="translate(38 58)"><rect width="260" height="156" rx="18" class="card"/><circle cx="34" cy="34" r="18" class="n"/><text x="34" y="39" text-anchor="middle" font-family="Segoe UI" class="nw">01</text><text x="28" y="82" class="t h">Introduire doucement</text><text x="28" y="106" class="t s">Sans aspirer.</text><path d="M28 126 H208" stroke="#cfe1e4" stroke-width="4" stroke-linecap="round"/></g>
++<g transform="translate(330 58)"><rect width="260" height="156" rx="18" class="card"/><circle cx="34" cy="34" r="18" class="n"/><text x="34" y="39" text-anchor="middle" font-family="Segoe UI" class="nw">02</text><text x="28" y="82" class="t h">Respecter le repère</text><text x="28" y="106" class="t s">Ne jamais forcer.</text><path d="M28 126 H208" stroke="#cfe1e4" stroke-width="4" stroke-linecap="round"/></g>
++<g transform="translate(622 58)"><rect width="260" height="156" rx="18" class="card"/><circle cx="34" cy="34" r="18" fill="#e9853c"/><text x="34" y="39" text-anchor="middle" font-family="Segoe UI" class="nw">03</text><text x="28" y="82" class="t h">Aspirer au retrait</text><text x="28" y="106" class="t s">Lentement et progressivement.</text><path d="M28 126 H208" stroke="#f1d3be" stroke-width="4" stroke-linecap="round"/></g>
++<rect x="38" y="235" width="844" height="42" rx="12" fill="#eef6f7"/><text x="460" y="261" text-anchor="middle" class="t s">Durée totale : 5 à 10 secondes maximum · ne pas réintroduire la sonde immédiatement.</text>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/anp_mesure.svg /mnt/data/aspiration_github_v2/assets/anp_mesure.svg
+--- /mnt/data/aspiration_scorm_v1/assets/anp_mesure.svg	2026-09-29 02:45:00.697150402 +0000
++++ /mnt/data/aspiration_github_v2/assets/anp_mesure.svg	2026-09-29 02:57:49.137701992 +0000
+@@ -1,7 +1,9 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-label="Repères de mesure avant ANP : aile du nez vers coin interne de l'œil ; si insuffisant, bout du nez vers lobe de l'oreille, longueur à ne jamais dépasser.">
+-<style>.t{font:700 26px Arial;fill:#143c55}.s{font:600 19px Arial;fill:#143c55}.a{stroke:#16859a;stroke-width:7;fill:none;marker-end:url(#m)}.b{stroke:#e9842d;stroke-width:7;fill:none;marker-end:url(#n)}.note{font:500 18px Arial;fill:#35586a}</style><defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#16859a"/></marker><marker id="n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#e9842d"/></marker></defs>
+-<text x="450" y="38" text-anchor="middle" class="t">Mesurer avant d'introduire la sonde</text>
+-<path d="M250 110 Q430 45 610 125 Q715 180 655 310 Q610 365 495 350 Q360 370 260 300 Q195 245 250 110" fill="#faede2" stroke="#d8b098" stroke-width="3"/><circle cx="420" cy="185" r="10" fill="#143c55"/><path d="M520 195 q38 0 55 15" fill="none" stroke="#143c55" stroke-width="4"/><ellipse cx="610" cy="245" rx="24" ry="36" fill="#f6dfd0" stroke="#d8b098" stroke-width="3"/>
+-<path d="M515 205 C485 180 455 176 430 184" class="a"/><text x="110" y="118" class="s">Repère principal</text><text x="110" y="146" class="s">aile du nez → coin interne de l'œil</text>
+-<path d="M535 220 C565 230 585 240 607 245" class="b"/><text x="80" y="335" class="s">Si insuffisant : bout du nez → lobe de l'oreille</text><text x="80" y="365" class="s">Longueur à ne jamais dépasser.</text>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" role="img" aria-label="Repères de mesure avant ANP : aile du nez vers coin interne de l’œil ; si insuffisant, bout du nez vers lobe de l’oreille">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:18px;font-weight:750}.s{font-size:14px;fill:#5d7986}.skin{fill:#f7e6dc;stroke:#d5b4a3;stroke-width:2}.a{fill:none;stroke:#0b8d99;stroke-width:5;stroke-linecap:round}.b{fill:none;stroke:#e9853c;stroke-width:5;stroke-linecap:round}</style></defs>
++<text x="38" y="34" class="t cap">ANP · MESURER AVANT D’INTRODUIRE</text>
++<g transform="translate(44 64)"><rect width="832" height="300" rx="22" fill="#f8fbfb" stroke="#d9e6e8"/><path d="M270 74 Q446 20 596 95 Q694 145 644 247 Q606 290 502 286 Q376 305 287 250 Q222 211 270 74" class="skin"/><circle cx="430" cy="139" r="7" fill="#12384b"/><path d="M512 151 q31 0 45 12" fill="none" stroke="#12384b" stroke-width="3" stroke-linecap="round"/><ellipse cx="598" cy="198" rx="19" ry="29" fill="#f5ded2" stroke="#d5b4a3" stroke-width="2"/>
++<path d="M511 159 C482 140 455 136 438 139" class="a"/><circle cx="511" cy="159" r="5" fill="#0b8d99"/><circle cx="438" cy="139" r="5" fill="#0b8d99"/>
++<path d="M529 172 C557 180 575 190 596 198" class="b"/><circle cx="529" cy="172" r="5" fill="#e9853c"/><circle cx="596" cy="198" r="5" fill="#e9853c"/>
++<g transform="translate(34 36)"><text class="t h">Repère principal</text><text y="24" class="t s">Aile du nez → coin interne de l’œil</text><line x1="0" y1="40" x2="110" y2="40" class="a"/></g>
++<g transform="translate(34 225)"><text class="t h">Si insuffisant</text><text y="24" class="t s">Bout du nez → lobe de l’oreille</text><text y="48" class="t s">Longueur à ne jamais dépasser</text><line x1="0" y1="64" x2="110" y2="64" class="b"/></g></g>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/aop_geste.svg /mnt/data/aspiration_github_v2/assets/aop_geste.svg
+--- /mnt/data/aspiration_scorm_v1/assets/aop_geste.svg	2026-09-29 02:45:00.697199493 +0000
++++ /mnt/data/aspiration_github_v2/assets/aop_geste.svg	2026-09-29 02:57:49.144599346 +0000
+@@ -1,8 +1,9 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 300" role="img" aria-label="AOP : stimulation à l'oralité, introduire sans aspirer par l'intérieur des joues, éviter le réflexe nauséeux, aspirer au retrait.">
+-<style>.t{font:700 24px Arial;fill:#143c55}.n{font:700 30px Arial;fill:white}.s{font:600 18px Arial;fill:#143c55}</style>
+-<text x="490" y="35" text-anchor="middle" class="t">AOP : les repères du geste</text>
+-<g transform="translate(28,75)"><circle cx="45" cy="45" r="38" fill="#16859a"/><text x="45" y="55" text-anchor="middle" class="n">1</text><text x="92" y="39" class="s">Stimulation</text><text x="92" y="66" class="s">à l'oralité</text></g>
+-<g transform="translate(270,75)"><circle cx="45" cy="45" r="38" fill="#16859a"/><text x="45" y="55" text-anchor="middle" class="n">2</text><text x="92" y="39" class="s">Introduire sans aspirer</text><text x="92" y="66" class="s">par l'intérieur des joues</text></g>
+-<g transform="translate(560,75)"><circle cx="45" cy="45" r="38" fill="#e9842d"/><text x="45" y="55" text-anchor="middle" class="n">3</text><text x="92" y="39" class="s">Si besoin, arrière-gorge</text><text x="92" y="66" class="s">éviter le réflexe nauséeux</text></g>
+-<text x="490" y="238" text-anchor="middle" class="s">Aspirer uniquement au retrait, lentement et progressivement.</text>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" role="img" aria-label="AOP : stimulation à l’oralité, introduire sans aspirer par l’intérieur des joues, si nécessaire aller vers l’arrière-gorge en évitant le réflexe nauséeux, aspirer au retrait">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:16px;font-weight:750}.s{font-size:13px;fill:#607b88}.card{fill:#fff;stroke:#d8e5e8;stroke-width:2}.nw{font-size:14px;font-weight:800;fill:white}</style></defs>
++<text x="38" y="32" class="t cap">AOP · REPÈRES DU GESTE</text>
++<g transform="translate(38 58)"><rect width="196" height="176" rx="18" class="card"/><circle cx="32" cy="32" r="17" fill="#0b8d99"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI" class="nw">01</text><text x="24" y="82" class="t h">Stimulation</text><text x="24" y="103" class="t h">à l’oralité</text><text x="24" y="136" class="t s">Prévenir le bébé</text><text x="24" y="155" class="t s">avec la sonde.</text></g>
++<g transform="translate(254 58)"><rect width="196" height="176" rx="18" class="card"/><circle cx="32" cy="32" r="17" fill="#0b8d99"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI" class="nw">02</text><text x="24" y="82" class="t h">Introduire</text><text x="24" y="103" class="t h">sans aspirer</text><text x="24" y="136" class="t s">Commencer par</text><text x="24" y="155" class="t s">l’intérieur des joues.</text></g>
++<g transform="translate(470 58)"><rect width="196" height="176" rx="18" class="card"/><circle cx="32" cy="32" r="17" fill="#0b8d99"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI" class="nw">03</text><text x="24" y="82" class="t h">Si nécessaire</text><text x="24" y="103" class="t h">arrière-gorge</text><text x="24" y="136" class="t s">Éviter le réflexe</text><text x="24" y="155" class="t s">nauséeux.</text></g>
++<g transform="translate(686 58)"><rect width="196" height="176" rx="18" class="card"/><circle cx="32" cy="32" r="17" fill="#e9853c"/><text x="32" y="37" text-anchor="middle" font-family="Segoe UI" class="nw">04</text><text x="24" y="82" class="t h">Aspirer</text><text x="24" y="103" class="t h">au retrait</text><text x="24" y="136" class="t s">Lentement et</text><text x="24" y="155" class="t s">progressivement.</text></g>
++<rect x="38" y="250" width="844" height="42" rx="12" fill="#eef6f7"/><text x="460" y="276" text-anchor="middle" class="t s">Durée totale : 5 à 10 secondes maximum · ne pas réintroduire la sonde immédiatement.</text>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/app.js /mnt/data/aspiration_github_v2/assets/app.js
+--- /mnt/data/aspiration_scorm_v1/assets/app.js	2026-09-29 02:45:00.697281792 +0000
++++ /mnt/data/aspiration_github_v2/assets/app.js	2026-09-29 03:04:06.614443850 +0000
+@@ -1,29 +1,271 @@
+-
+ const screens=[...document.querySelectorAll('.screen')];
++const navButtons=[...document.querySelectorAll('.nav [data-go]')];
++const STORAGE_KEY='cht_aspiration_neonatologie_web_v2';
++const chapters=[
++  {name:'Comprendre',start:0,end:4},
++  {name:'Décider',start:5,end:7},
++  {name:'Préparer',start:8,end:10},
++  {name:'DRP',start:11,end:13},
++  {name:'ANP / AOP',start:14,end:17},
++  {name:'Sécuriser',start:18,end:22}
++];
+ let state={screen:0,visited:[0],answers:{},final:{},finalScore:null};
+-const sectionStarts=[0,2,5,8,11,18];
+-function loadState(){SCORM.init();let raw=SCORM.get('cmi.suspend_data');if(!raw){try{raw=localStorage.getItem('aspiration_scorm_v1')||'';}catch(e){}}if(raw){try{let s=JSON.parse(raw);state={...state,...s};}catch(e){}}let loc=parseInt(SCORM.get('cmi.core.lesson_location')||state.screen||0,10);if(!isNaN(loc))state.screen=Math.max(0,Math.min(screens.length-1,loc));}
+-function saveState(){let raw=JSON.stringify(state);if(raw.length<3900)SCORM.set('cmi.suspend_data',raw);SCORM.set('cmi.core.lesson_location',state.screen);SCORM.commit();try{localStorage.setItem('aspiration_scorm_v1',raw);}catch(e){}}
+-function showScreen(i){i=Math.max(0,Math.min(screens.length-1,i));state.screen=i;if(!state.visited.includes(i))state.visited.push(i);screens.forEach((s,j)=>s.classList.toggle('active',j===i));document.querySelectorAll('.nav [data-go]').forEach(b=>{b.classList.toggle('active',Number(b.dataset.go)===i);let target=Number(b.dataset.go);let sec=sectionStarts.filter(x=>x<=target).pop();b.disabled=!state.visited.some(v=>v>=sec);});document.getElementById('prev').disabled=i===0;document.getElementById('next').textContent=i===screens.length-1?'Terminer':'Suivant';document.getElementById('pos').textContent=`Écran ${i+1} / ${screens.length}`;document.getElementById('bar').style.width=`${((i+1)/screens.length)*100}%`;document.querySelector('.stage').scrollTop=0;saveState();}
+-function choose(el,key,val,correct,feedback){el.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected','good','bad'));el.classList.add('selected',val===correct?'good':'bad');state.answers[key]=val;let fb=document.getElementById(feedback);fb.classList.add('show',val===correct?'good':'warn');fb.innerHTML=val===correct?fb.dataset.good:fb.dataset.bad;SCORM.interaction(key,'choice',val,val===correct?'correct':'wrong');saveState();}
+-function validateChecks(id,required,key){let box=document.getElementById(id);let checked=[...box.querySelectorAll('input:checked')].map(x=>x.value);let ok=required.every(x=>checked.includes(x))&&checked.every(x=>required.includes(x));let fb=box.querySelector('.feedback');fb.classList.add('show',ok?'good':'warn');fb.textContent=ok?'Oui. Vous avez retenu les éléments attendus.':'Revoyez votre sélection : certains éléments attendus sont manquants ou un distracteur a été choisi.';state.answers[key]=checked;SCORM.interaction(key,'choice',checked.join(','),ok?'correct':'wrong');saveState();}
+-function validateOrder(){let sels=[...document.querySelectorAll('#orderDRP select')];let ok=sels.every((s,i)=>Number(s.value)===i+1);let fb=document.querySelector('#orderDRP .feedback');fb.classList.add('show',ok?'good':'warn');fb.textContent=ok?'Ordre correct. La DRP se termine toujours par une observation de la réponse et une décision.':'Pas encore. Replacez les huit étapes en vous appuyant sur la logique : évaluer → préparer → installer → réaliser → observer → décider.';state.answers.drp_order=sels.map(s=>s.value);SCORM.interaction('drp_order','sequencing',state.answers.drp_order.join(','),ok?'correct':'wrong');saveState();}
++let toastTimer=null;
++let vitalsTimer=null;
++
++function chapterFor(i){return chapters.find(c=>i>=c.start&&i<=c.end)||chapters[0];}
++function currentScreenLabel(i){
++  const screen=screens[i];
++  const eye=screen?.querySelector('.eyebrow')?.textContent?.trim();
++  const title=screen?.querySelector('h1')?.innerText?.replace(/\s+/g,' ')?.trim();
++  return [eye,title].filter(Boolean).join(' · ');
++}
++function loadState(){
++  TRACKING.init();
++  try{
++    const raw=localStorage.getItem(STORAGE_KEY)||'';
++    if(raw)state={...state,...JSON.parse(raw)};
++  }catch(e){}
++  state.screen=Math.max(0,Math.min(screens.length-1,Number(state.screen)||0));
++  if(!Array.isArray(state.visited)||!state.visited.length)state.visited=[0];
++}
++function saveState(){
++  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}
++  TRACKING.set('location',state.screen);
++  TRACKING.commit();
++}
++function showToast(message){
++  const toast=document.getElementById('toast');
++  if(!toast)return;
++  toast.textContent=message;
++  toast.classList.add('show');
++  clearTimeout(toastTimer);
++  toastTimer=setTimeout(()=>toast.classList.remove('show'),3300);
++}
++function closeNav(){
++  document.body.classList.remove('nav-open');
++  const t=document.getElementById('menuToggle');
++  if(t)t.setAttribute('aria-expanded','false');
++}
++function openNav(){
++  document.body.classList.add('nav-open');
++  const t=document.getElementById('menuToggle');
++  if(t)t.setAttribute('aria-expanded','true');
++}
++function updateNav(i){
++  const maxVisited=Math.max(...state.visited);
++  const unlockedStarts=chapters.filter(c=>c.start<=maxVisited).map(c=>c.start);
++  const currentChapter=chapterFor(i);
++  const candidates=navButtons.filter(b=>Number(b.dataset.go)<=i && chapterFor(Number(b.dataset.go)).name===currentChapter.name);
++  const active=candidates[candidates.length-1]||navButtons.find(b=>Number(b.dataset.go)===currentChapter.start);
++  navButtons.forEach(b=>{
++    const target=Number(b.dataset.go);
++    const ch=chapterFor(target);
++    const unlocked=unlockedStarts.includes(ch.start);
++    b.disabled=!unlocked;
++    b.classList.toggle('active',b===active);
++    if(b===active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');
++  });
++}
++function showScreen(i){
++  i=Math.max(0,Math.min(screens.length-1,i));
++  if(i!==18)clearInterval(vitalsTimer);
++  state.screen=i;
++  if(!state.visited.includes(i))state.visited.push(i);
++  screens.forEach((s,j)=>s.classList.toggle('active',j===i));
++  updateNav(i);
++  const prev=document.getElementById('prev');
++  const next=document.getElementById('next');
++  if(prev)prev.disabled=i===0;
++  if(next)next.textContent=i===screens.length-1?'Terminer':'Suivant';
++  const ch=chapterFor(i);
++  document.getElementById('chapterLabel').textContent=ch.name;
++  document.getElementById('progressCount').textContent=`${i+1} / ${screens.length}`;
++  document.getElementById('pos').textContent=`${i+1} / ${screens.length}`;
++  document.getElementById('footerHint').textContent=currentScreenLabel(i);
++  document.getElementById('bar').style.width=`${((i+1)/screens.length)*100}%`;
++  const stage=document.querySelector('.stage');
++  if(stage)stage.scrollTop=0;
++  window.scrollTo({top:0,behavior:'auto'});
++  closeNav();
++  saveState();
++}
++function setFeedback(fb,ok,goodText,badText){
++  if(!fb)return;
++  fb.className='feedback show '+(ok?'good':'warn');
++  fb.textContent=ok?goodText:badText;
++  fb.setAttribute('role','status');
++}
++function choose(el,key,val,correct,feedback){
++  const siblings=el.parentElement.querySelectorAll('.choice');
++  siblings.forEach(x=>x.classList.remove('selected','good','bad'));
++  const ok=val===correct;
++  el.classList.add('selected',ok?'good':'bad');
++  state.answers[key]=val;
++  const fb=document.getElementById(feedback);
++  setFeedback(fb,ok,fb?.dataset.good||'Décision correcte.',fb?.dataset.bad||'Revoyez ce point du protocole.');
++  TRACKING.interaction(key,'choice',val,ok?'correct':'wrong');
++  saveState();
++}
++function validateChecks(id,required,key){
++  const box=document.getElementById(id);
++  const checked=[...box.querySelectorAll('input:checked')].map(x=>x.value);
++  const ok=required.every(x=>checked.includes(x))&&checked.every(x=>required.includes(x));
++  setFeedback(box.querySelector('.feedback'),ok,'Oui. Vous avez retenu tous les éléments attendus.','Revoyez votre sélection : un élément attendu manque ou un distracteur a été retenu.');
++  state.answers[key]=checked;
++  TRACKING.interaction(key,'choice',checked.join(','),ok?'correct':'wrong');
++  saveState();
++}
++function validateOrder(){
++  const sels=[...document.querySelectorAll('#orderDRP select')];
++  const ok=sels.every((s,i)=>Number(s.value)===i+1);
++  setFeedback(document.querySelector('#orderDRP .feedback'),ok,'Ordre correct. La DRP se termine par l’observation de la réponse et la décision de s’arrêter ou de poursuivre le raisonnement.','Pas encore. Appuyez-vous sur la logique : évaluer → préparer → installer → réaliser → observer → décider.');
++  state.answers.drp_order=sels.map(s=>s.value);
++  TRACKING.interaction('drp_order','sequencing',state.answers.drp_order.join(','),ok?'correct':'wrong');
++  saveState();
++}
+ function gaugeChanged(v){document.getElementById('gaugeVal').textContent=v+' mbar';}
+-function validateGauge(){let v=Number(document.getElementById('gauge').value),pop=document.getElementById('pop').value;let ok=(pop==='prema'&&v>=80&&v<=105)||(pop==='term'&&v>=105&&v<=130);let fb=document.getElementById('gaugeFb');fb.classList.add('show',ok?'good':'warn');fb.textContent=ok?'Réglage compris dans la plage indiquée par le protocole.':`Ce réglage n'est pas dans la plage indiquée pour cette population. Rappel : prématuré 80-105 mbar ; nouveau-né à terme 105-130 mbar ; limite absolue ≤ 150 mbar.`;state.answers.gauge={pop,v};SCORM.interaction('pressure_setting','numeric',String(v),ok?'correct':'wrong');saveState();}
+-let vitalsTimer=null;function startVitals(){clearInterval(vitalsTimer);let fc=132,spo=94,stopped=false;document.getElementById('fc').textContent=fc;document.getElementById('spo').textContent=spo;document.getElementById('vitalFb').className='feedback';document.getElementById('vitalFb').textContent='';vitalsTimer=setInterval(()=>{fc-=Math.ceil(Math.random()*5);spo-=Math.random()<.55?1:0;document.getElementById('fc').textContent=fc;document.getElementById('spo').textContent=spo;if(fc<94||spo<81){clearInterval(vitalsTimer);if(!stopped){let fb=document.getElementById('vitalFb');fb.classList.add('show','warn');fb.textContent='Le geste aurait dû être interrompu dès FC < 100 bpm ou SpO₂ < 85 %.';SCORM.interaction('safety_stop','performance','late','wrong');}}},900);window.stopVitals=()=>{stopped=true;clearInterval(vitalsTimer);let fcNow=Number(document.getElementById('fc').textContent),spNow=Number(document.getElementById('spo').textContent);let ok=fcNow<100||spNow<85;let fb=document.getElementById('vitalFb');fb.classList.add('show',ok?'good':'warn');fb.textContent=ok?'Bonne réaction : le protocole demande d’interrompre immédiatement le geste à l’un de ces seuils.':'Vous avez arrêté avant le seuil. Réessayez et surveillez FC et SpO₂.';SCORM.interaction('safety_stop','performance',`${fcNow}/${spNow}`,ok?'correct':'wrong');state.answers.safety={fc:fcNow,spo:spNow,ok};saveState();};}
++function validateGauge(){
++  const v=Number(document.getElementById('gauge').value);
++  const pop=document.getElementById('pop').value;
++  const ok=(pop==='prema'&&v>=80&&v<=105)||(pop==='term'&&v>=105&&v<=130);
++  setFeedback(document.getElementById('gaugeFb'),ok,'Réglage compris dans la plage indiquée par le protocole.',`Ce réglage n’est pas dans la plage indiquée pour cette population. Prématuré : 80–105 mbar ; nouveau-né à terme : 105–130 mbar ; limite absolue : ≤ 150 mbar.`);
++  state.answers.gauge={pop,v};
++  TRACKING.interaction('pressure_setting','numeric',String(v),ok?'correct':'wrong');
++  saveState();
++}
++const vitalSequence=[
++  {fc:132,spo:94},{fc:127,spo:93},{fc:121,spo:92},{fc:114,spo:90},
++  {fc:107,spo:88},{fc:101,spo:86},{fc:98,spo:84},{fc:95,spo:82}
++];
++let vitalIndex=0;
++function paintVitals(){
++  const v=vitalSequence[vitalIndex];
++  document.getElementById('fc').textContent=v.fc;
++  document.getElementById('spo').textContent=v.spo;
++}
++function startVitals(){
++  clearInterval(vitalsTimer);vitalIndex=0;paintVitals();
++  const fb=document.getElementById('vitalFb');fb.className='feedback';fb.textContent='';
++  vitalsTimer=setInterval(()=>{
++    if(vitalIndex<vitalSequence.length-1){vitalIndex++;paintVitals();}
++    const v=vitalSequence[vitalIndex];
++    if(vitalIndex===vitalSequence.length-1){
++      clearInterval(vitalsTimer);
++      setFeedback(fb,false,'','Le geste aurait dû être interrompu dès FC < 100 bpm ou SpO₂ < 85 %.');
++      TRACKING.interaction('safety_stop','performance','late','wrong');
++    }
++  },950);
++}
++function stopVitals(){
++  clearInterval(vitalsTimer);
++  const fcNow=Number(document.getElementById('fc').textContent);
++  const spNow=Number(document.getElementById('spo').textContent);
++  const ok=fcNow<100||spNow<85;
++  setFeedback(document.getElementById('vitalFb'),ok,'Bonne réaction : le protocole demande d’interrompre immédiatement le geste à l’un de ces seuils.','Vous avez arrêté avant le seuil. Relancez la simulation et surveillez FC et SpO₂.');
++  TRACKING.interaction('safety_stop','performance',`${fcNow}/${spNow}`,ok?'correct':'wrong');
++  state.answers.safety={fc:fcNow,spo:spNow,ok};saveState();
++}
+ const finalQs=[
+  {q:'1. Que faut-il faire avant toute décision ?',a:['Réaliser une ANP','Évaluer l’encombrement','Réaliser une AOP'],c:1},
+  {q:'2. Quel est le geste de première intention ?',a:['DRP','ANP','AOP'],c:0},
+  {q:'3. Après une DRP efficace, que faites-vous ?',a:['ANP par précaution','AOP','J’arrête le soin'],c:2},
+  {q:'4. La DRP est insuffisante et la SpO₂ est à 87 % avec signes de lutte. Quel geste peut être envisagé ?',a:['ANP','AOP systématique','Aucun'],c:0},
+- {q:'5. Pour un prématuré < 37 SA, quelle plage de pression est indiquée ?',a:['50-70 mbar','80-105 mbar','105-130 mbar'],c:1},
++ {q:'5. Pour un prématuré < 37 SA, quelle plage de pression est indiquée ?',a:['50–70 mbar','80–105 mbar','105–130 mbar'],c:1},
+  {q:'6. Pendant l’ANP, l’aspiration est activée…',a:['Pendant l’introduction','Uniquement au retrait','En continu'],c:1},
+  {q:'7. La FC passe à 98 bpm pendant le geste. Que faites-vous ?',a:['Je poursuis','J’interromps immédiatement','J’attends la SpO₂'],c:1},
+  {q:'8. Après le geste, que faut-il faire ?',a:['Évaluer tolérance/douleur et tracer le soin','Aucune action si l’enfant est calme','Réaliser systématiquement une gazométrie'],c:0}
+ ];
+-function renderFinal(){let host=document.getElementById('finalCase');host.innerHTML='';finalQs.forEach((x,i)=>{let d=document.createElement('div');d.className='caseStep'+(i===0?' active':'');d.dataset.i=i;d.innerHTML=`<h3>${x.q}</h3><div class="choices">${x.a.map((a,j)=>`<button class="choice" onclick="finalAnswer(${i},${j},this)">${String.fromCharCode(65+j)}. ${a}</button>`).join('')}</div><div class="feedback"></div>`;host.appendChild(d)});}
+-function finalAnswer(i,j,el){let x=finalQs[i];let step=document.querySelector(`.caseStep[data-i="${i}"]`);step.querySelectorAll('.choice').forEach(b=>b.disabled=true);el.classList.add(j===x.c?'good':'bad');let fb=step.querySelector('.feedback');fb.classList.add('show',j===x.c?'good':'warn');fb.textContent=j===x.c?'Décision correcte.':'Cette décision n’est pas conforme au protocole. La correction sera reprise dans la synthèse.';state.final[i]=j;SCORM.interaction('final_'+(i+1),'choice',String(j),j===x.c?'correct':'wrong');setTimeout(()=>{step.classList.remove('active');let next=document.querySelector(`.caseStep[data-i="${i+1}"]`);if(next)next.classList.add('active');else finishFinal();},550);saveState();}
+-function finishFinal(){let correct=finalQs.reduce((n,x,i)=>n+(state.final[i]===x.c?1:0),0);let score=Math.round(correct/finalQs.length*100);state.finalScore=score;SCORM.set('cmi.core.score.raw',score);SCORM.set('cmi.core.score.min','0');SCORM.set('cmi.core.score.max','100');SCORM.set('cmi.core.lesson_status','completed');SCORM.commit();document.getElementById('finalCase').innerHTML=`<div class="info"><div class="summaryScore">${score} %</div><p>${correct} décision(s) conforme(s) sur ${finalQs.length}.</p><p>Cette situation finale sert d’évaluation intégrative. Aucun seuil de réussite n’est imposé ici, car le protocole source n’en fixe pas.</p><button class="cta" onclick="showScreen(${screens.length-1})">Voir la synthèse</button></div>`;saveState();}
+-function fullscreen(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();}
+-document.getElementById('prev').onclick=()=>showScreen(state.screen-1);document.getElementById('next').onclick=()=>{if(state.screen===screens.length-1){SCORM.set('cmi.core.lesson_status','completed');SCORM.commit();alert('Formation terminée. Votre progression a été enregistrée si le module est ouvert dans Moodle.');}else showScreen(state.screen+1)};document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showScreen(Number(b.dataset.go)));window.addEventListener('beforeunload',()=>SCORM.finish());
+-loadState();renderFinal();showScreen(state.screen);if(!SCORM.get('cmi.core.lesson_status'))SCORM.set('cmi.core.lesson_status','incomplete');
++function renderFinal(){
++  const host=document.getElementById('finalCase');if(!host)return;host.innerHTML='';
++  finalQs.forEach((x,i)=>{
++    const d=document.createElement('div');d.className='caseStep'+(i===0?' active':'');d.dataset.i=i;
++    d.innerHTML=`<div class="case-progress">Décision ${i+1} sur ${finalQs.length}</div><h3>${x.q}</h3><div class="choices">${x.a.map((a,j)=>`<button class="choice" onclick="finalAnswer(${i},${j},this)"><span class="choice-key">${String.fromCharCode(65+j)}</span><span class="choice-text">${a}</span></button>`).join('')}</div><div class="feedback"></div>`;
++    host.appendChild(d);
++  });
++}
++function finalAnswer(i,j,el){
++  const x=finalQs[i];const step=document.querySelector(`.caseStep[data-i="${i}"]`);if(!step)return;
++  step.querySelectorAll('.choice').forEach(b=>b.disabled=true);
++  const ok=j===x.c;el.classList.add(ok?'good':'bad');
++  setFeedback(step.querySelector('.feedback'),ok,'Décision correcte.','Cette décision n’est pas conforme au protocole. La correction sera reprise dans la synthèse.');
++  state.final[i]=j;TRACKING.interaction('final_'+(i+1),'choice',String(j),ok?'correct':'wrong');saveState();
++  setTimeout(()=>{step.classList.remove('active');const next=document.querySelector(`.caseStep[data-i="${i+1}"]`);if(next)next.classList.add('active');else finishFinal();},520);
++}
++function finishFinal(){
++  const correct=finalQs.reduce((n,x,i)=>n+(state.final[i]===x.c?1:0),0);
++  const score=Math.round(correct/finalQs.length*100);state.finalScore=score;
++  const host=document.getElementById('finalCase');
++  host.innerHTML=`<div class="info result-panel"><div class="summaryScore">${score} %</div><p><strong>${correct} décision(s) conforme(s) sur ${finalQs.length}.</strong></p><p>Cette situation finale vérifie le raisonnement professionnel. Le protocole source ne fixe pas de seuil de réussite.</p><button class="cta" onclick="showScreen(${screens.length-1})">Voir la synthèse</button></div>`;
++  saveState();
++}
++function restoreUI(){
++  document.querySelectorAll('button.choice[onclick^="choose"]').forEach(btn=>{
++    const raw=btn.getAttribute('onclick')||'';
++    const m=raw.match(/choose\(this,'([^']+)','([^']+)','([^']+)'/);if(!m)return;
++    const [,key,val,correct]=m;
++    if(state.answers[key]===val)btn.classList.add('selected',val===correct?'good':'bad');
++  });
++  const checkMaps={observation:'observeChecks',material:'materialChecks',beforecare:'beforeChecks',aftercare:'afterChecks'};
++  Object.entries(checkMaps).forEach(([key,id])=>{
++    const vals=state.answers[key];if(!Array.isArray(vals))return;
++    document.querySelectorAll(`#${id} input[type="checkbox"]`).forEach(x=>x.checked=vals.includes(x.value));
++  });
++  if(state.answers.gauge){
++    const {pop,v}=state.answers.gauge;
++    const p=document.getElementById('pop'),g=document.getElementById('gauge');
++    if(p)p.value=pop;if(g){g.value=v;gaugeChanged(v);}
++  }
++  if(Array.isArray(state.answers.drp_order)){
++    document.querySelectorAll('#orderDRP select').forEach((s,i)=>s.value=state.answers.drp_order[i]||'');
++  }
++  if(state.finalScore!==null){
++    finishFinal();
++  }else{
++    const answered=Object.keys(state.final).map(Number).filter(i=>Number.isInteger(i)).sort((a,b)=>a-b);
++    if(answered.length){
++      document.querySelectorAll('.caseStep').forEach(x=>x.classList.remove('active'));
++      answered.forEach(i=>{
++        const step=document.querySelector(`.caseStep[data-i="${i}"]`);
++        const answer=state.final[i];
++        if(!step||answer===undefined)return;
++        const buttons=[...step.querySelectorAll('.choice')];
++        buttons.forEach(b=>b.disabled=true);
++        const selected=buttons[answer];
++        if(selected)selected.classList.add(answer===finalQs[i].c?'good':'bad');
++        setFeedback(step.querySelector('.feedback'),answer===finalQs[i].c,'Décision correcte.','Cette décision n’est pas conforme au protocole. La correction sera reprise dans la synthèse.');
++      });
++      const nextIndex=Math.min(answered.length,finalQs.length-1);
++      document.querySelector(`.caseStep[data-i="${nextIndex}"]`)?.classList.add('active');
++    }
++  }
++}
++function fullscreen(){
++  if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();
++}
++function updateFullscreenLabel(){
++  const btn=document.getElementById('fullscreenBtn');if(!btn)return;
++  const active=!!document.fullscreenElement;
++  btn.textContent=active?'Quitter le plein écran':'Plein écran';
++  btn.setAttribute('aria-label',active?'Quitter le plein écran':'Entrer en plein écran');
++}
++function finishCourse(){
++  showToast('Parcours terminé. Votre progression reste enregistrée sur cet appareil.');
++  state.completed=true;saveState();
++}
++
++document.getElementById('prev').onclick=()=>showScreen(state.screen-1);
++document.getElementById('next').onclick=()=>state.screen===screens.length-1?finishCourse():showScreen(state.screen+1);
++navButtons.forEach(b=>b.onclick=()=>showScreen(Number(b.dataset.go)));
++document.getElementById('menuToggle')?.addEventListener('click',()=>document.body.classList.contains('nav-open')?closeNav():openNav());
++document.getElementById('navClose')?.addEventListener('click',closeNav);
++document.getElementById('navOverlay')?.addEventListener('click',closeNav);
++document.addEventListener('fullscreenchange',updateFullscreenLabel);
++document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
++window.addEventListener('beforeunload',()=>TRACKING.finish());
++
++loadState();
++renderFinal();
++restoreUI();
++showScreen(state.screen);
++updateFullscreenLabel();
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/drp_position.svg /mnt/data/aspiration_github_v2/assets/drp_position.svg
+--- /mnt/data/aspiration_scorm_v1/assets/drp_position.svg	2026-09-29 02:45:00.697125649 +0000
++++ /mnt/data/aspiration_github_v2/assets/drp_position.svg	2026-09-29 02:57:49.136446522 +0000
+@@ -1,8 +1,9 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-label="Positionnement pour la DRP : décubitus latéral, tête légèrement fléchie, narine à désobstruer vers le haut.">
+-<style>.t{font:700 26px Arial;fill:#143c55}.s{font:600 21px Arial;fill:#143c55}.note{font:500 18px Arial;fill:#35586a}</style>
+-<text x="450" y="38" text-anchor="middle" class="t">Positionnement pour la DRP</text>
+-<ellipse cx="385" cy="230" rx="185" ry="82" fill="#f8e9dd" stroke="#d8b098" stroke-width="3"/><circle cx="585" cy="205" r="76" fill="#f8e9dd" stroke="#d8b098" stroke-width="3"/><path d="M610 198 q18 5 30 0" fill="none" stroke="#143c55" stroke-width="3"/><circle cx="605" cy="182" r="6" fill="#143c55"/><path d="M580 257 Q555 272 530 258" fill="none" stroke="#d8b098" stroke-width="7"/>
+-<path d="M675 135 q40 15 50 55" fill="none" stroke="#16859a" stroke-width="7"/><path d="M720 190 l-18 -5 l10 17z" fill="#16859a"/>
+-<text x="80" y="335" class="s">• Décubitus latéral</text><text x="80" y="367" class="s">• Tête légèrement fléchie</text><text x="470" y="335" class="s">• Narine à désobstruer</text><text x="493" y="367" class="s">orientée vers le haut</text>
+-<text x="450" y="405" text-anchor="middle" class="note">Illustration pédagogique du positionnement - elle ne remplace pas la démonstration métier.</text>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" role="img" aria-label="Positionnement pour la DRP : décubitus latéral, tête légèrement fléchie, narine à désobstruer vers le haut">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.cap{font-size:12px;font-weight:800;letter-spacing:1.2px;fill:#0b8d99}.h{font-size:20px;font-weight:750}.s{font-size:14px;fill:#5c7886}.line{fill:none;stroke:#12384b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.accent{fill:none;stroke:#0b8d99;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.skin{fill:#f7e6dc;stroke:#d5b4a3;stroke-width:2}</style></defs>
++<text x="38" y="34" class="t cap">DRP · POSITIONNEMENT</text>
++<g transform="translate(60 70)"><rect width="800" height="275" rx="24" fill="#f8fbfb" stroke="#d9e6e8"/><ellipse cx="372" cy="157" rx="170" ry="72" class="skin"/><circle cx="572" cy="132" r="64" class="skin"/><path d="M591 119 q16 5 27 0" class="line"/><circle cx="588" cy="105" r="5" fill="#12384b"/><path d="M635 63 C668 80 681 106 680 136" class="accent"/><path d="M675 131 l-7-13 16 4z" fill="#0b8d99"/><path d="M545 185 Q526 198 508 188" class="line"/>
++<g transform="translate(30 28)"><circle cx="15" cy="15" r="15" fill="#0b8d99"/><text x="15" y="20" text-anchor="middle" fill="white" font-family="Segoe UI" font-size="13" font-weight="800">1</text><text x="42" y="20" class="t h">Décubitus latéral</text></g>
++<g transform="translate(30 220)"><circle cx="15" cy="15" r="15" fill="#0b8d99"/><text x="15" y="20" text-anchor="middle" fill="white" font-family="Segoe UI" font-size="13" font-weight="800">2</text><text x="42" y="20" class="t h">Tête légèrement fléchie</text></g>
++<g transform="translate(470 220)"><circle cx="15" cy="15" r="15" fill="#e9853c"/><text x="15" y="20" text-anchor="middle" fill="white" font-family="Segoe UI" font-size="13" font-weight="800">3</text><text x="42" y="20" class="t h">Narine vers le haut</text></g></g>
++<text x="460" y="383" text-anchor="middle" class="t s">Schéma pédagogique du positionnement décrit dans le protocole.</text>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/hero_signal.svg /mnt/data/aspiration_github_v2/assets/hero_signal.svg
+--- /mnt/data/aspiration_scorm_v1/assets/hero_signal.svg	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/aspiration_github_v2/assets/hero_signal.svg	2026-09-29 02:57:49.131210987 +0000
+@@ -0,0 +1,12 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="Observer, décider puis réévaluer avant toute aspiration ciblée">
++<defs><style>
++.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.k{font-size:14px;font-weight:700;letter-spacing:1.2px}.h{font-size:23px;font-weight:750}.s{font-size:15px;font-weight:500;fill:#557583}.n{font-size:16px;font-weight:800;fill:white}.line{fill:none;stroke:#9fc9ce;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.node{fill:white;stroke:#cfe1e4;stroke-width:2}.accent{fill:#0b8d99}.warm{fill:#e9853c}
++</style></defs>
++<text x="42" y="44" class="t k">LOGIQUE DE DÉCISION</text>
++<path d="M84 132 H625" class="line"/>
++<g transform="translate(52 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">01</text><text x="0" y="102" class="t h">Observer</text><text x="0" y="127" class="t s">Signes cliniques</text></g>
++<g transform="translate(230 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">02</text><text x="0" y="102" class="t h">DRP</text><text x="0" y="127" class="t s">Première intention</text></g>
++<g transform="translate(408 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">03</text><text x="0" y="102" class="t h">Réévaluer</text><text x="0" y="127" class="t s">Effet obtenu ?</text></g>
++<g transform="translate(586 96)"><circle cx="32" cy="36" r="31" class="warm"/><text x="32" y="42" text-anchor="middle" class="t n">04</text><text x="-12" y="102" class="t h">Cibler</text><text x="-12" y="127" class="t s">ANP / AOP si indiqué</text></g>
++<g transform="translate(42 278)"><rect width="636" height="76" rx="16" fill="#eaf5ef" stroke="#cfe6d9"/><circle cx="34" cy="38" r="17" fill="#2e7d57"/><path d="M26 38 l6 6 11-13" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="68" y="33" class="t h" style="font-size:18px">Si la DRP est efficace : arrêt du soin.</text><text x="68" y="56" class="t s">La poursuite par aspiration n’est pas systématique.</text></g>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/observation.svg /mnt/data/aspiration_github_v2/assets/observation.svg
+--- /mnt/data/aspiration_scorm_v1/assets/observation.svg	2026-09-29 02:45:00.697096912 +0000
++++ /mnt/data/aspiration_github_v2/assets/observation.svg	2026-09-29 02:57:49.132947188 +0000
+@@ -1,10 +1,8 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-label="Quatre éléments à observer : bruits respiratoires, dynamique respiratoire, saturation en oxygène et tolérance.">
+-<style>.t{font:700 26px Arial;fill:#143c55}.s{font:600 21px Arial;fill:#143c55}.c{fill:#eef6f8;stroke:#4a8aa1;stroke-width:2}</style>
+-<text x="450" y="38" text-anchor="middle" class="t">Avant d'agir : quatre repères à observer</text>
+-<circle cx="450" cy="210" r="82" fill="#f9efe7" stroke="#d9b69e" stroke-width="3"/><circle cx="425" cy="190" r="8" fill="#143c55"/><circle cx="475" cy="190" r="8" fill="#143c55"/><path d="M418 240 Q450 262 482 240" fill="none" stroke="#143c55" stroke-width="4"/>
+-<rect x="45" y="95" width="270" height="80" rx="18" class="c"/><text x="180" y="143" text-anchor="middle" class="s">Bruits respiratoires</text>
+-<rect x="585" y="95" width="270" height="80" rx="18" class="c"/><text x="720" y="143" text-anchor="middle" class="s">Dynamique respiratoire</text>
+-<rect x="45" y="270" width="270" height="80" rx="18" class="c"/><text x="180" y="318" text-anchor="middle" class="s">SpO₂</text>
+-<rect x="585" y="270" width="270" height="80" rx="18" class="c"/><text x="720" y="318" text-anchor="middle" class="s">Tolérance</text>
+-<path d="M315 135 L372 172 M585 135 L528 172 M315 310 L372 260 M585 310 L528 260" stroke="#4a8aa1" stroke-width="4"/>
+-</svg>
+\ No newline at end of file
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" role="img" aria-label="Quatre éléments à observer : bruits respiratoires, dynamique respiratoire, SpO2 et tolérance">
++<defs><style>.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.h{font-size:20px;font-weight:750}.s{font-size:14px;fill:#607c89}.card{fill:#fff;stroke:#d7e4e7;stroke-width:2}.ic{fill:none;stroke:#0b8d99;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.num{font-size:12px;font-weight:800;fill:#0b8d99;letter-spacing:1px}</style></defs>
++<text x="42" y="36" class="t num">AVANT D’AGIR · ÉVALUER LA SITUATION</text>
++<g transform="translate(42 72)"><rect width="394" height="120" rx="18" class="card"/><path d="M45 39 C65 24 78 24 97 39 M45 57 C65 42 78 42 97 57 M45 75 C65 60 78 60 97 75" class="ic"/><text x="128" y="52" class="t h">Bruits respiratoires</text><text x="128" y="79" class="t s">Écouter ce qui oriente le raisonnement.</text></g>
++<g transform="translate(484 72)"><rect width="394" height="120" rx="18" class="card"/><path d="M46 30 V86 M100 30 V86 M46 58 C60 44 73 44 86 58 C91 63 96 64 100 58" class="ic"/><text x="128" y="52" class="t h">Dynamique respiratoire</text><text x="128" y="79" class="t s">Observer l’effort et les signes de lutte.</text></g>
++<g transform="translate(42 220)"><rect width="394" height="120" rx="18" class="card"/><rect x="40" y="30" width="62" height="55" rx="10" class="ic"/><text x="71" y="65" text-anchor="middle" class="t h" style="font-size:18px">SpO₂</text><text x="128" y="52" class="t h">Saturation pulsée</text><text x="128" y="79" class="t s">Lire la valeur dans son contexte clinique.</text></g>
++<g transform="translate(484 220)"><rect width="394" height="120" rx="18" class="card"/><path d="M72 28 C55 28 42 41 42 58 C42 80 72 91 72 91 C72 91 102 80 102 58 C102 41 89 28 72 28Z" class="ic"/><path d="M58 58 h8 l5-10 7 20 5-10 h8" class="ic"/><text x="128" y="52" class="t h">Tolérance</text><text x="128" y="79" class="t s">Apprécier la réponse globale du nouveau-né.</text></g>
++</svg>
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/scorm.js /mnt/data/aspiration_github_v2/assets/scorm.js
+--- /mnt/data/aspiration_scorm_v1/assets/scorm.js	2026-09-29 02:45:00.697248790 +0000
++++ /mnt/data/aspiration_github_v2/assets/scorm.js	1970-01-01 00:00:00.000000000 +0000
+@@ -1,2 +0,0 @@
+-
+-const SCORM={api:null,initialized:false,findAPI(win){let tries=0;while(win&&tries<12){try{if(win.API)return win.API;}catch(e){}tries++;try{win=win.parent;}catch(e){break}}return null;},init(){this.api=this.findAPI(window)||this.findAPI(window.opener);if(!this.api)return false;try{this.initialized=this.api.LMSInitialize("")==="true";return this.initialized;}catch(e){return false;}},get(k){if(!this.initialized)return"";try{return this.api.LMSGetValue(k)||"";}catch(e){return"";}},set(k,v){if(!this.initialized)return false;try{return this.api.LMSSetValue(k,String(v))==="true";}catch(e){return false;}},commit(){if(this.initialized)try{this.api.LMSCommit("");}catch(e){}},finish(){if(this.initialized)try{this.api.LMSCommit("");this.api.LMSFinish("");}catch(e){}},interaction(id,type,response,result){if(!this.initialized)return;let n=parseInt(this.get('cmi.interactions._count')||'0',10);this.set(`cmi.interactions.${n}.id`,id);this.set(`cmi.interactions.${n}.type`,type||'choice');this.set(`cmi.interactions.${n}.student_response`,response);this.set(`cmi.interactions.${n}.result`,result||'neutral');this.commit();}};
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/style.css /mnt/data/aspiration_github_v2/assets/style.css
+--- /mnt/data/aspiration_scorm_v1/assets/style.css	2026-09-29 02:48:08.798148214 +0000
++++ /mnt/data/aspiration_github_v2/assets/style.css	2026-09-29 02:59:13.281158192 +0000
+@@ -1,27 +1,201 @@
+-
+-:root{--ink:#173b52;--muted:#577383;--teal:#0d8293;--blue:#1d6398;--orange:#e7812f;--paper:#f6f9fa;--line:#d4e1e6;--good:#247a47;--warn:#a76019;--bad:#aa3a3a;--shadow:0 12px 38px rgba(23,59,82,.10)}
+-*{box-sizing:border-box} html,body{margin:0;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#edf3f5} button,input{font:inherit}
+-body{overflow:hidden}.app{height:100vh;display:grid;grid-template-rows:68px 1fr 58px}.topbar{display:flex;align-items:center;gap:16px;padding:8px 20px;background:white;border-bottom:1px solid var(--line);z-index:5}.logo{width:88px;height:50px;object-fit:contain}.titlewrap{min-width:0}.kicker{font-size:12px;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.07em}.coursetitle{font-size:19px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}.progress{width:170px;height:9px;background:#e5eef1;border-radius:99px;overflow:hidden}.progress>span{display:block;height:100%;background:var(--teal);width:0;transition:.25s}.iconbtn{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 12px;color:var(--ink);cursor:pointer}.iconbtn:hover,.iconbtn:focus{border-color:var(--teal);outline:2px solid rgba(13,130,147,.15)}
+-.main{display:grid;grid-template-columns:250px 1fr;min-height:0}.nav{background:#173b52;color:white;padding:18px 14px;overflow:auto}.nav h2{font-size:14px;margin:0 0 12px;opacity:.75;text-transform:uppercase}.nav button{width:100%;border:0;background:transparent;color:white;text-align:left;padding:10px 11px;border-radius:9px;margin:2px 0;cursor:pointer}.nav button.active{background:#0d8293}.nav button:disabled{opacity:.35;cursor:not-allowed}.nav .sec{font-size:13px;font-weight:700;color:#a9d8e0;margin:16px 10px 6px}.stage{overflow:auto;padding:30px}.screen{display:none;max-width:1080px;margin:0 auto}.screen.active{display:block}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}h1{font-size:34px;margin:0 0 10px;line-height:1.15}h2{font-size:25px;margin:0 0 16px}h3{font-size:18px;margin:22px 0 8px}p{font-size:18px;line-height:1.55;margin:8px 0 14px}.lead{font-size:22px;color:#35586a;max-width:820px}.eyebrow{font-size:13px;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.06em}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}.hero-panel{background:linear-gradient(135deg,#dff0f3,#f8f2ea);min-height:330px;border-radius:18px;padding:32px;display:flex;flex-direction:column;justify-content:center}.bigq{font-size:38px;line-height:1.12;font-weight:800}.pillrow{display:flex;flex-wrap:wrap;gap:10px}.pill{background:#eef6f8;padding:8px 12px;border-radius:999px;font-size:14px}.cta{background:var(--teal);color:white;border:0;border-radius:12px;padding:13px 20px;font-weight:700;cursor:pointer}.cta:hover,.cta:focus{filter:brightness(.95);outline:3px solid rgba(13,130,147,.2)}.secondary{background:white;color:var(--ink);border:1px solid var(--line)}.danger{background:#b3443e}.choices{display:grid;gap:10px;margin-top:18px}.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fbfdfe;border-radius:12px;padding:14px 16px;cursor:pointer;font-size:17px}.choice:hover,.choice:focus{border-color:var(--teal);outline:none}.choice.selected{border-color:var(--teal);background:#e8f5f7}.choice.good{border-color:#4c9a68;background:#e8f5ec}.choice.bad{border-color:#c86666;background:#faeeee}.feedback{display:none;margin-top:14px;padding:15px 17px;border-radius:12px;background:#eef6f8;font-size:16px;line-height:1.45}.feedback.show{display:block}.feedback.good{background:#e8f5ec;border-left:5px solid var(--good)}.feedback.warn{background:#fff3e8;border-left:5px solid var(--orange)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.info{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fbfdfe}.info strong{display:block;font-size:18px;margin-bottom:6px}.media{background:#f8fbfc;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0}.media img{display:block;max-width:100%;height:auto;margin:auto}.checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:10px;background:white}.check input{margin-top:4px}.riskgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.risk{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:#fbfdfe;min-height:98px;display:flex;align-items:center;justify-content:center;font-weight:700}.sortlist{display:grid;gap:8px}.sortitem{padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:white;display:flex;gap:12px;align-items:center}.sortitem select{margin-left:auto;min-width:230px;padding:8px;border-radius:8px;border:1px solid var(--line)}.meterwrap{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:center}.gauge{width:100%;max-width:560px}.range{width:100%}.valuebox{font-size:34px;font-weight:800;color:var(--teal);text-align:center}.monitor{background:#071b24;color:#a7ff76;border-radius:16px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px;font-family:Consolas,monospace}.vital{border:1px solid #31505d;border-radius:12px;padding:20px}.vital .num{font-size:54px;font-weight:800}.vital .lab{font-size:18px}.alert{font-size:20px;color:#ffcc91}.note{border-left:5px solid var(--orange);background:#fff6ed;padding:14px 16px;border-radius:8px}.sourcebox{font-size:14px;color:var(--muted);border-top:1px solid var(--line);margin-top:22px;padding-top:12px}.footer{display:flex;align-items:center;gap:10px;padding:8px 20px;background:white;border-top:1px solid var(--line)}.footer .screenpos{font-size:14px;color:var(--muted);margin-right:auto}.footer button{padding:10px 16px}.tag{display:inline-block;font-size:13px;border-radius:999px;padding:5px 9px;background:#fff0e4;color:#8f501a;font-weight:700}.resources ul{line-height:1.65}.resourcebtn{display:inline-block;padding:11px 14px;border-radius:10px;background:#eef6f8;color:var(--ink);text-decoration:none;font-weight:700;margin:5px 6px 5px 0;border:1px solid var(--line)}.resourcebtn:hover{border-color:var(--teal)}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.caseStep{display:none}.caseStep.active{display:block}.summaryScore{font-size:52px;font-weight:800;color:var(--teal)}
+-@media(max-width:900px){body{overflow:auto}.app{height:auto;min-height:100vh}.main{grid-template-columns:1fr}.nav{display:none}.stage{padding:18px}.hero,.grid2,.grid3,.meterwrap{grid-template-columns:1fr}.riskgrid{grid-template-columns:1fr 1fr}.topbar{position:sticky;top:0}.progress{width:100px}.coursetitle{font-size:15px}.logo{width:62px}.footer{position:sticky;bottom:0}.checkgrid{grid-template-columns:1fr}}
+-@media(max-width:900px){
+-  html,body,.app,.topbar,.main,.stage,.screen,.card,.footer{min-width:0;max-width:100%;width:100%}
+-  .topbar{padding:8px 10px;gap:8px;align-items:flex-start}
+-  .titlewrap{flex:1 1 auto;min-width:0}
+-  .kicker{font-size:9px;line-height:1.25;white-space:normal}
+-  .coursetitle{font-size:12px;line-height:1.25;white-space:normal;overflow-wrap:anywhere}
+-  .logo{width:34px;height:42px;flex:0 0 34px}
+-  .top-actions{gap:4px;flex:0 0 auto}
+-  .top-actions .progress{display:none}
+-  .iconbtn{padding:8px 9px;font-size:12px}
+-  .stage{padding:14px;overflow-x:hidden}
+-  .card{padding:18px;border-radius:15px;overflow:hidden}
+-  h1{font-size:28px} h2{font-size:22px} h3{font-size:17px} p,.lead{font-size:16px}
+-  .riskgrid{grid-template-columns:1fr}
++:root{
++  --ink:#12384b;
++  --ink-2:#284f61;
++  --muted:#657f8c;
++  --teal:#0b8d99;
++  --teal-dark:#08737d;
++  --teal-soft:#e6f4f4;
++  --blue-soft:#eef5f8;
++  --orange:#e9853c;
++  --orange-soft:#fff2e8;
++  --green:#2e7d57;
++  --green-soft:#eaf5ef;
++  --red:#b74949;
++  --red-soft:#faeeee;
++  --nav:#0b3448;
++  --nav-2:#0e4157;
++  --paper:#ffffff;
++  --surface:#f4f7f8;
++  --surface-2:#edf3f5;
++  --line:#d8e3e7;
++  --line-strong:#c7d7dc;
++  --shadow:0 20px 55px rgba(14,56,75,.09);
++  --shadow-sm:0 8px 24px rgba(14,56,75,.07);
++  --radius:18px;
++  --radius-sm:12px;
++  --font:"Segoe UI Variable","Aptos","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
++}
++*{box-sizing:border-box}
++html{height:100%;scroll-behavior:smooth}
++body{margin:0;height:100%;font-family:var(--font);color:var(--ink);background:var(--surface);font-size:16px;line-height:1.55;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
++button,input,select{font:inherit}
++button,a,input,select{touch-action:manipulation}
++button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(11,141,153,.23);outline-offset:2px}
++.skip-link{position:fixed;left:16px;top:-60px;z-index:1000;background:var(--ink);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;transition:top .15s ease}
++.skip-link:focus{top:12px}
++body{overflow:hidden}
++.app{height:100vh;display:grid;grid-template-rows:74px 1fr 64px}
++.topbar{display:flex;align-items:center;gap:16px;padding:10px 22px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:30}
++.brandlockup{display:flex;align-items:center;gap:14px;min-width:0}
++.logo{width:70px;height:48px;object-fit:contain;flex:0 0 auto}
++.brandtext{min-width:0}
++.service-label{font-size:11px;line-height:1.2;font-weight:750;letter-spacing:.115em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
++.coursetitle{font-size:18px;line-height:1.2;font-weight:720;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.012em}
++.top-actions{margin-left:auto;display:grid;grid-template-columns:auto 158px auto;align-items:center;gap:12px;min-width:0}
++.progress-meta{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;white-space:nowrap}
++.progress-meta #chapterLabel{font-weight:700;color:var(--ink-2)}
++.progress{width:158px;height:5px;background:#e6eef0;border-radius:99px;overflow:hidden}
++.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#31aab0);border-radius:inherit;width:0;transition:width .28s ease}
++.iconbtn{border:1px solid var(--line-strong);background:white;border-radius:11px;padding:9px 13px;color:var(--ink);font-weight:650;cursor:pointer;transition:border-color .16s ease,background .16s ease,transform .16s ease;white-space:nowrap}
++.iconbtn:hover{border-color:#9fbbc4;background:#fbfdfd}
++.iconbtn:active,.cta:active{transform:translateY(1px)}
++.menu-toggle,.nav-close{display:none}
++.main{display:grid;grid-template-columns:278px minmax(0,1fr);min-height:0;position:relative}
++.nav{background:linear-gradient(180deg,var(--nav) 0%,#0a3143 100%);color:white;padding:22px 16px 28px;overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
++.nav-head{display:flex;align-items:center;justify-content:space-between;padding:0 8px}
++.nav-title{font-size:13px;text-transform:uppercase;letter-spacing:.11em;font-weight:800;color:#d9edf1}
++.nav-intro{font-size:13px;color:#8eb4c1;margin:4px 8px 18px}
++.nav .sec{font-size:11px;font-weight:800;letter-spacing:.085em;text-transform:uppercase;color:#7fb6c3;margin:20px 10px 7px}
++.nav button[data-go]{position:relative;width:100%;border:0;background:transparent;color:#d7e6eb;text-align:left;padding:9px 11px 9px 14px;border-radius:10px;margin:1px 0;cursor:pointer;font-size:14px;transition:background .15s ease,color .15s ease,padding-left .15s ease}
++.nav button[data-go]::before{content:"";position:absolute;left:2px;top:50%;width:3px;height:16px;border-radius:4px;background:transparent;transform:translateY(-50%);transition:background .15s ease}
++.nav button[data-go]:hover:not(:disabled){background:rgba(255,255,255,.07);color:white}
++.nav button[data-go].active{background:rgba(18,156,168,.18);color:white;padding-left:18px;font-weight:700}
++.nav button[data-go].active::before{background:#4bd0d6}
++.nav button[data-go]:disabled{opacity:.34;cursor:not-allowed}
++.nav-overlay{display:none}
++.stage{overflow:auto;padding:42px clamp(24px,4vw,62px) 64px;min-width:0;background:radial-gradient(circle at 82% 10%,rgba(11,141,153,.055),transparent 28%),var(--surface)}
++.screen{display:none;max-width:1120px;margin:0 auto}
++.screen.active{display:block;animation:screenIn .22s cubic-bezier(.2,.75,.3,1)}
++@keyframes screenIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
++.card{background:var(--paper);border:1px solid rgba(199,215,220,.8);border-radius:24px;padding:clamp(26px,3.2vw,42px);box-shadow:var(--shadow);overflow:hidden}
++h1,h2,h3{color:var(--ink);letter-spacing:-.028em;text-wrap:balance}
++h1{font-size:clamp(34px,4vw,50px);line-height:1.04;margin:0 0 16px;font-weight:760;max-width:900px}
++h2{font-size:27px;line-height:1.15;margin:34px 0 14px;font-weight:740}
++h3{font-size:19px;line-height:1.25;margin:28px 0 9px;font-weight:720}
++p{font-size:17px;line-height:1.62;margin:10px 0 18px;color:var(--ink-2);max-width:880px}
++.lead{font-size:clamp(19px,2vw,23px);line-height:1.54;color:#365f72;max-width:760px}
++.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--teal-dark);font-weight:800;text-transform:uppercase;letter-spacing:.105em;margin-bottom:10px}
++.eyebrow::before{content:"";width:18px;height:2px;background:var(--teal);border-radius:2px}
++.hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.82fr);gap:48px;align-items:center;min-height:min(630px,calc(100vh - 220px))}
++.hero h1{font-size:clamp(44px,5.1vw,66px);max-width:760px}
++.hero .lead{margin-top:20px}
++.hero-panel{position:relative;min-height:410px;border-radius:22px;padding:26px;background:linear-gradient(155deg,#eff8f8 0%,#f7f7f2 100%);border:1px solid #dce9e9;display:flex;flex-direction:column;justify-content:center;gap:18px;overflow:hidden}
++.hero-panel::after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-70px;top:-90px;background:rgba(11,141,153,.07)}
++.hero-visual{width:100%;height:auto;display:block;position:relative;z-index:1}
++.hero-principle{position:relative;z-index:1;border-top:1px solid #d5e5e6;padding-top:16px}
++.hero-principle strong{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-dark)}
++.hero-principle p{font-size:15px;line-height:1.5;margin:6px 0 0;color:#476877}
++.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
++.pill{display:inline-flex;align-items:center;background:#edf5f6;color:#315a6c;border:1px solid #dce9ec;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:650}
++.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--teal);color:white;border:1px solid var(--teal);border-radius:12px;padding:12px 18px;font-weight:750;cursor:pointer;box-shadow:0 7px 18px rgba(11,141,153,.16);transition:background .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease}
++.cta:hover{background:var(--teal-dark);border-color:var(--teal-dark);box-shadow:0 9px 20px rgba(11,141,153,.20)}
++.secondary{background:white;color:var(--ink);border-color:var(--line-strong);box-shadow:none}
++.secondary:hover{background:#f8fbfb;color:var(--ink);border-color:#a8c0c7}
++.danger{background:var(--red);border-color:var(--red);box-shadow:0 7px 18px rgba(183,73,73,.14)}
++.danger:hover{background:#9f3d3d;border-color:#9f3d3d}
++.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
++.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
++.info{position:relative;border:1px solid var(--line);border-radius:15px;padding:20px;background:#fbfcfc;box-shadow:0 1px 0 rgba(17,56,75,.02)}
++.info::before{content:"";position:absolute;left:20px;top:0;width:42px;height:2px;background:#8bcbd0;border-radius:0 0 3px 3px}
++.info strong{display:block;font-size:17px;margin-bottom:7px;color:var(--ink)}
++.info p{font-size:15.5px;line-height:1.54;margin:6px 0 10px;color:#466777}
++.media{background:#f8fbfb;border:1px solid var(--line);border-radius:17px;padding:18px;margin:22px 0;overflow:hidden}
++.media img{display:block;max-width:100%;height:auto;margin:auto}
++.choices{display:grid;gap:10px;margin-top:22px;max-width:900px}
++.choice{position:relative;width:100%;text-align:left;border:1px solid var(--line);background:#fcfdfd;border-radius:13px;padding:14px 17px;cursor:pointer;font-size:16px;color:var(--ink);transition:border-color .15s ease,background .15s ease,box-shadow .15s ease,transform .15s ease}
++button.choice:hover{border-color:#9dc2c8;background:white;box-shadow:var(--shadow-sm);transform:translateY(-1px)}
++.choice.selected{border-color:#74bbc2;background:#edf8f8}
++.choice.good{border-color:#7bb598;background:var(--green-soft)}
++.choice.bad{border-color:#d49393;background:var(--red-soft)}
++.feedback{display:none;margin-top:14px;padding:15px 17px 15px 46px;border-radius:13px;background:#edf5f7;font-size:15px;line-height:1.5;color:#35586a;position:relative;border:1px solid transparent}
++.feedback.show{display:block;animation:feedbackIn .18s ease}
++@keyframes feedbackIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
++.feedback.show::before{position:absolute;left:16px;top:14px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-weight:850;font-size:12px}
++.feedback.good{background:var(--green-soft);border-color:#cfe6d9;color:#285f44}
++.feedback.good::before{content:"✓";background:#d5ebdf;color:var(--green)}
++.feedback.warn{background:var(--orange-soft);border-color:#f0d7c3;color:#7e522f}
++.feedback.warn::before{content:"!";background:#f8dfca;color:#9a5c2c}
++.tracking-note{margin-top:20px;font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
++.tracking-note::before{content:"";width:7px;height:7px;border-radius:50%;background:#9cc8cd;flex:0 0 auto}
++.checkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
++.check{position:relative;display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);padding:13px 14px;border-radius:12px;background:#fcfdfd;color:#34596b;font-size:15px;line-height:1.42;cursor:pointer;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
++.check:hover{border-color:#a7c5cb;background:white}
++.check:has(input:checked){border-color:#83c0c6;background:#eff8f8;box-shadow:0 0 0 1px rgba(11,141,153,.04)}
++.check input{margin:3px 0 0;width:17px;height:17px;accent-color:var(--teal);flex:0 0 auto}
++.riskgrid{counter-reset:risk;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:24px}
++.risk{counter-increment:risk;position:relative;border-top:2px solid #9ccbd0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-left:1px solid var(--line);border-radius:13px;padding:42px 14px 16px;background:#fbfcfc;min-height:132px;display:flex;align-items:flex-end;font-size:14.5px;line-height:1.35;font-weight:720;color:#284f61}
++.risk::before{content:"0" counter(risk);position:absolute;top:14px;left:14px;font-size:12px;letter-spacing:.08em;color:var(--teal-dark);font-weight:800}
++.note{border-left:3px solid var(--orange);background:#fff7f0;padding:15px 17px;border-radius:0 12px 12px 0;color:#654b39;font-size:15px;line-height:1.5;margin:18px 0}
++.note strong{color:#63422b}
++.tag{display:inline-flex;align-items:center;font-size:12px;border-radius:999px;padding:5px 9px;background:#fff0e5;color:#8c541f;font-weight:750;border:1px solid #f0d7c1}
++.sortlist{display:grid;gap:8px;margin-top:20px}
++.sortitem{padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:#fcfdfd;display:flex;gap:16px;align-items:center;color:#34596b;font-size:15px;transition:border-color .15s ease,background .15s ease}
++.sortitem:hover{border-color:#b2cbd1;background:white}
++.sortitem select{margin-left:auto;min-width:170px;padding:8px 10px;border-radius:9px;border:1px solid var(--line-strong);background:white;color:var(--ink)}
++.meterwrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:30px;align-items:start;margin-top:20px}
++.select-control{width:100%;max-width:540px;margin:8px 0 24px;padding:12px 42px 12px 13px;border-radius:11px;border:1px solid var(--line-strong);background:white;color:var(--ink);appearance:none;background-image:linear-gradient(45deg,transparent 50%,#668592 50%),linear-gradient(135deg,#668592 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
++.range{width:100%;max-width:600px;accent-color:var(--teal);margin:18px 0 6px}
++.valuebox{font-size:42px;line-height:1;font-weight:800;letter-spacing:-.035em;color:var(--teal-dark);margin:14px 0 22px}
++.monitor{background:linear-gradient(145deg,#071c24,#0d2b36);color:#bcff91;border-radius:18px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;font-family:"Cascadia Mono",Consolas,monospace;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
++.vital{border:1px solid rgba(155,198,210,.23);border-radius:12px;padding:18px;background:rgba(255,255,255,.025)}
++.vital .num{font-size:54px;line-height:1;font-weight:780;letter-spacing:-.04em}
++.vital .lab{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#8ddfcf;margin-bottom:8px}
++.alert{font-size:18px;color:#ffd2a4}
++.resources ul{line-height:1.65;color:var(--ink-2);max-width:900px}
++.resourcebtn{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:10px;background:#f0f7f8;color:var(--ink);text-decoration:none;font-weight:700;margin:5px 6px 5px 0;border:1px solid #d7e7e9;transition:background .15s ease,border-color .15s ease,transform .15s ease}
++.resourcebtn::after{content:"↗";font-size:13px;color:var(--teal-dark)}
++.resourcebtn:hover{border-color:#99c4ca;background:#e9f4f5;transform:translateY(-1px)}
++.caseStep{display:none}.caseStep.active{display:block;animation:screenIn .18s ease}
++.summaryScore{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.045em;color:var(--teal-dark);margin-bottom:10px}
++.footer{display:flex;align-items:center;gap:16px;padding:9px 22px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:25}
++.footer-context{min-width:0;margin-right:auto}
++.screenpos{font-size:12px;font-weight:700;color:var(--ink-2)}
++.footer-hint{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:520px}
++.footer-actions{display:flex;gap:8px;align-items:center}
++.nav-btn{min-width:104px}
++.toast{position:fixed;right:22px;bottom:82px;z-index:70;max-width:min(390px,calc(100vw - 32px));padding:13px 16px;border-radius:12px;background:#0d3447;color:white;box-shadow:0 18px 44px rgba(4,37,52,.22);font-size:14px;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
++.toast.show{opacity:1;transform:none}
++.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
++@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
++@media(max-width:1100px){
++  .main{grid-template-columns:242px minmax(0,1fr)}
++  .hero{grid-template-columns:1fr;gap:24px;min-height:auto}.hero-panel{min-height:300px}.hero h1{max-width:840px}
++  .riskgrid{grid-template-columns:repeat(3,1fr)}
++  .top-actions{grid-template-columns:auto 110px auto}.progress{width:110px}
++}
++@media(max-width:860px){
++  body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-rows:66px 1fr 60px}
++  .topbar{position:sticky;top:0;padding:8px 12px;gap:9px}
++  .menu-toggle{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink);font-size:0;cursor:pointer;flex:0 0 auto}
++  .menu-toggle::before{content:"";width:16px;height:12px;background:linear-gradient(var(--ink),var(--ink)) 0 0/16px 1.5px no-repeat,linear-gradient(var(--ink),var(--ink)) 0 5px/16px 1.5px no-repeat,linear-gradient(var(--ink),var(--ink)) 0 10px/16px 1.5px no-repeat}
++  .logo{width:40px;height:38px}.service-label{font-size:9px;margin-bottom:2px}.coursetitle{font-size:13px;max-width:46vw}
++  .top-actions{display:flex;gap:7px}.progress-meta{display:none}.progress{position:absolute;left:0;right:0;bottom:-1px;width:auto;height:3px}.iconbtn#fullscreenBtn{font-size:0;padding:8px;width:38px;height:38px}.iconbtn#fullscreenBtn::before{content:"⛶";font-size:17px}
++  .main{display:block;min-height:calc(100vh - 126px)}
++  .nav{position:fixed;z-index:60;inset:0 auto 0 0;width:min(318px,86vw);padding:22px 16px 90px;transform:translateX(-104%);transition:transform .2s cubic-bezier(.2,.75,.3,1);box-shadow:20px 0 44px rgba(4,31,44,.2)}
++  body.nav-open .nav{transform:none}.nav-close{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.06);color:white;font-size:23px;cursor:pointer}
++  .nav-overlay{display:block;position:fixed;z-index:55;inset:0;background:rgba(5,30,43,.42);border:0;opacity:0;pointer-events:none;transition:opacity .2s ease}
++  body.nav-open .nav-overlay{opacity:1;pointer-events:auto}
++  .stage{padding:18px 14px 90px;overflow:visible;min-width:0}
++  .card{padding:24px 19px;border-radius:18px;box-shadow:0 12px 34px rgba(14,56,75,.08)}
++  h1{font-size:clamp(31px,9vw,42px)}h2{font-size:24px}p,.lead{font-size:16px}
++  .hero{display:block}.hero h1{font-size:clamp(38px,11vw,50px)}.hero-panel{margin-top:26px;min-height:0;padding:20px}.hero-principle p{font-size:14px}
++  .grid2,.grid3,.meterwrap,.checkgrid{grid-template-columns:1fr}
++  .riskgrid{grid-template-columns:1fr 1fr}.risk{min-height:105px}
+   .sortitem{flex-wrap:wrap}.sortitem select{min-width:0;width:100%;margin-left:0}
+-  .monitor{grid-template-columns:1fr}.vital .num{font-size:44px}
+-  .resourcebtn{display:block;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+-  .footer{padding:7px 10px;gap:6px}.footer .screenpos{font-size:12px}.footer button{padding:9px 10px;font-size:12px}
+-  .media{padding:8px;overflow:hidden}.media img{width:100%;height:auto}
+-  ul{padding-left:20px}
++  .monitor{grid-template-columns:1fr 1fr}.vital{padding:14px}.vital .num{font-size:42px}
++  .footer{position:fixed;left:0;right:0;bottom:0;padding:8px 10px;box-shadow:0 -10px 28px rgba(14,56,75,.07)}
++  .footer-hint{display:none}.footer-context{min-width:52px}.screenpos{font-size:11px}.nav-btn{min-width:0;padding:9px 12px;font-size:13px}
++  .resourcebtn{display:flex;width:100%;justify-content:space-between;margin:6px 0}
++}
++@media(max-width:520px){
++  .brandtext{max-width:52vw}.service-label{display:none}.coursetitle{font-size:12px;line-height:1.2;white-space:normal;max-width:48vw}
++  .logo{width:34px}.riskgrid{grid-template-columns:1fr}.hero .pillrow{gap:6px}.pill{font-size:12px;padding:6px 9px}
++  .monitor{grid-template-columns:1fr}.footer{gap:8px}.footer-actions{gap:6px}.nav-btn{padding:9px 10px}
+ }
++.choice{display:flex;align-items:flex-start;gap:12px}
++.choice-key{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:8px;background:#edf4f5;color:var(--teal-dark);font-size:12px;font-weight:800;line-height:1;margin-top:-1px;transition:background .15s ease,color .15s ease}
++.choice-text{flex:1;min-width:0;padding-top:2px}
++.choice.good .choice-key{background:#d5ebdf;color:var(--green)}
++.choice.bad .choice-key{background:#f1d4d4;color:var(--red)}
++.case-progress{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-dark);margin:4px 0 10px}
++.result-panel{max-width:680px;background:linear-gradient(145deg,#f5fbfb,#fbfcfc)}
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/assets/tracking.js /mnt/data/aspiration_github_v2/assets/tracking.js
+--- /mnt/data/aspiration_scorm_v1/assets/tracking.js	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/aspiration_github_v2/assets/tracking.js	2026-09-29 02:58:55.581284855 +0000
+@@ -0,0 +1,14 @@
++/*
++ * Adaptateur de suivi pour la version web/GitHub.
++ * L’interface est volontairement compatible avec le futur adaptateur SCORM.
++ * Sur GitHub Pages, la progression est conservée localement par app.js.
++ */
++const TRACKING={
++  initialized:false,
++  init(){this.initialized=true;return true;},
++  get(){return"";},
++  set(){return true;},
++  commit(){return true;},
++  finish(){return true;},
++  interaction(){return true;}
++};
+diff -ruN '--exclude=logo_cht.png' '--exclude=*.pdf' '--exclude=*.docx' '--exclude=*.csv' '--exclude=imsmanifest.xml' '--exclude=RAPPORT_RECETTE.md' /mnt/data/aspiration_scorm_v1/index.html /mnt/data/aspiration_github_v2/index.html
+--- /mnt/data/aspiration_scorm_v1/index.html	2026-09-29 02:51:26.608632564 +0000
++++ /mnt/data/aspiration_github_v2/index.html	2026-09-29 03:04:42.838748628 +0000
+@@ -1,60 +1,1415 @@
+-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aspiration en néonatologie - prototype v1</title><link rel="stylesheet" href="assets/style.css"></head><body>
+-<div class="app"><header class="topbar"><img src="assets/logo_cht.png" class="logo" alt="CHT Gaston Bourret"><div class="titlewrap"><div class="kicker">Prototype e-learning - service de néonatologie</div><div class="coursetitle">Aspiration en néonatologie : décider du bon geste et le réaliser en sécurité</div></div><div class="top-actions"><div class="progress" aria-label="Progression"><span id="bar"></span></div><button class="iconbtn" onclick="fullscreen()" title="Entrer ou quitter le plein écran">⛶ Plein écran</button></div></header>
+-<div class="main"><nav class="nav" aria-label="Navigation du module"><h2>Parcours</h2><div class="sec">Comprendre</div><button data-go="0">Accueil</button><button data-go="2">Situation initiale</button><button data-go="4">Trois gestes</button><div class="sec">Décider</div><button data-go="5">Principe fondamental</button><button data-go="7">Algorithme</button><div class="sec">Préparer</div><button data-go="8">Matériel</button><button data-go="9">Réglages</button><button data-go="10">Avant le soin</button><div class="sec">DRP</div><button data-go="11">DRP étape par étape</button><button data-go="13">Savoir s'arrêter</button><div class="sec">ANP / AOP</div><button data-go="14">Indication ANP</button><button data-go="16">Geste ANP</button><button data-go="17">Geste AOP</button><div class="sec">Sécuriser</div><button data-go="18">Surveillance</button><button data-go="19">Précautions</button><button data-go="20">Après le geste</button><button data-go="21">Situation finale</button></nav>
+-<main class="stage">
+-<section class="screen"><div class="card hero"><div><div class="eyebrow">Formation en ligne - prototype v1</div><h1>Un nouveau-né est encombré.<br>Faut-il aspirer ?</h1><p class="lead">Pas toujours. Vous allez vous entraîner à observer la situation, choisir le geste adapté, le réaliser en sécurité et savoir quand vous arrêter.</p><div class="pillrow"><span class="pill">Décider quand intervenir</span><span class="pill">Distinguer DRP / ANP / AOP</span><span class="pill">Sécuriser le geste</span><span class="pill">20-25 min</span></div><p><button class="cta" onclick="showScreen(1)">Commencer</button></p></div><div class="hero-panel"><div class="bigq">Observer.<br>Décider.<br>Réévaluer.</div><p>L'aspiration est un geste ciblé, non systématique, réalisé dans le respect de la sécurité et du confort de l'enfant.</p></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Cadre du protocole</div><h1>À qui s'adresse ce parcours ?</h1><div class="grid2"><div class="info"><strong>Service concerné</strong><p>Médecine et réanimation néonatale du CHT Gaston Bourret.</p></div><div class="info"><strong>Professionnels concernés</strong><p>Personnel infirmier et infirmier puériculteur intervenant auprès des nouveau-nés hospitalisés dans le service.</p></div></div><h3>Finalité</h3><p>Encadrer la DRP, l'ANP et/ou l'AOP chez le nouveau-né hospitalisé : des gestes ciblés, non systématiques, réalisés en sécurité et dans le respect du confort de l'enfant, conformément aux recommandations en vigueur mentionnées dans le protocole.</p><div class="sourcebox">Corpus : objet, domaine d'application et personnes concernées du protocole.</div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Positionnement initial</div><h1>Un nouveau-né semble encombré</h1><p>Quelle est votre première intervention ?</p><div class="choices"><button class="choice" onclick="choose(this,'initial','anp','eval','fbInitial')">A. Je réalise immédiatement une ANP</button><button class="choice" onclick="choose(this,'initial','eval','eval','fbInitial')">B. Je commence par évaluer l'encombrement</button><button class="choice" onclick="choose(this,'initial','systematic','eval','fbInitial')">C. Je réalise systématiquement une aspiration</button><button class="choice" onclick="choose(this,'initial','aop','eval','fbInitial')">D. Je réalise une AOP</button></div><div id="fbInitial" class="feedback" data-good="Oui. Avant toute décision, le protocole demande d'évaluer l'encombrement." data-bad="Pas encore. L'aspiration n'est pas un soin systématique. La première étape consiste à évaluer la situation."></div><div class="sourcebox">Cette réponse est enregistrée comme positionnement initial.</div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Observer avant d'agir</div><h1>Que devez-vous évaluer ?</h1><div class="media"><img src="assets/observation.svg" alt="Bruits respiratoires, dynamique respiratoire, SpO2 et tolérance"></div><div id="observeChecks"><div class="checkgrid"><label class="check"><input type="checkbox" value="bruits"> Bruits respiratoires</label><label class="check"><input type="checkbox" value="dynamique"> Dynamique respiratoire</label><label class="check"><input type="checkbox" value="spo"> SpO₂</label><label class="check"><input type="checkbox" value="tolerance"> Tolérance</label><label class="check"><input type="checkbox" value="poids"> Poids du jour</label><label class="check"><input type="checkbox" value="temperature"> Température de la chambre</label></div><p><button class="cta" onclick="validateChecks('observeChecks',['bruits','dynamique','spo','tolerance'],'observation')">Valider</button></p><div class="feedback"></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Vocabulaire utile</div><h1>Trois gestes, trois définitions</h1><div class="grid3"><div class="info"><strong>DRP</strong><p>Désobstruction rhino-pharyngée : instillation de sérum physiologique destinée à fluidifier et drainer les sécrétions nasales. Geste préalable à toute aspiration.</p></div><div class="info"><strong>ANP</strong><p>Aspiration naso-pharyngée : aspiration par pression négative des sécrétions présentes dans le nasopharynx à l'aide d'une sonde stérile, lorsque le prématuré ne peut les éliminer seul.</p></div><div class="info"><strong>AOP</strong><p>Aspiration oropharyngée : aspiration par pression négative des sécrétions présentes dans la bouche à l'aide d'une sonde stérile, lorsque le prématuré ne peut les éliminer seul.</p></div></div><h3>Abréviations</h3><p><strong>CH</strong> : Charrière - unité de mesure du diamètre des sondes. <strong>FC</strong> : fréquence cardiaque. <strong>SpO₂</strong> : saturation pulsée en oxygène.</p></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Principe fondamental</div><h1>L'ANP n'est pas un soin systématique</h1><div class="media"><img src="assets/algorithme.svg" alt="Algorithme décisionnel"></div><div class="note"><strong>À retenir :</strong> la DRP doit toujours être réalisée en premier. L'aspiration ne se justifie que si la DRP est insuffisante et si des critères cliniques objectifs la rendent nécessaire. Un nouveau-né qui respire correctement après une DRP ne doit pas être aspiré.</div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Pourquoi ce changement de réflexe ?</div><h1>Chaque aspiration inutile expose à des risques</h1><div class="riskgrid"><div class="risk">Douleur et stress</div><div class="risk">Bradycardie vagale et apnée réflexe</div><div class="risk">Lésions des muqueuses nasales</div><div class="risk">Troubles de l'oralité à long terme</div><div class="risk">Augmentation de la pression intracrânienne</div></div><p class="lead" style="margin-top:20px">L'objectif n'est donc pas « d'aspirer par habitude », mais de décider selon la situation clinique.</p></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Décision clinique</div><h1>L'algorithme complet</h1><div class="media"><img src="assets/algorithme.svg" alt="Algorithme décisionnel"></div><div class="grid2"><div class="info"><strong>ANP</strong><p>Encombrement persistant après DRP, avec bruits respiratoires anormaux audibles et/ou signes cliniques tels que désaturation, bradycardie ou lutte respiratoire, en lien avec un obstacle mécanique non résolu.</p></div><div class="info"><strong>AOP</strong><p>L'algorithme mentionne : bébé intubé ou sécrétions buccales visibles.</p><span class="tag">À harmoniser avant publication</span><p style="font-size:15px">Le tableau technique mentionne par ailleurs « bébé intubé et sédaté » et le trouble de la déglutition.</p></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Préparer le soin</div><h1>Le matériel nécessaire</h1><p>Sélectionnez tous les éléments attendus.</p><div id="materialChecks"><div class="checkgrid"><label class="check"><input type="checkbox" value="vide"> Source de vide médicale avec manomètre pédiatrique réglable</label><label class="check"><input type="checkbox" value="bocal"> Bocal et tuyau d'aspiration stérile à usage unique par patient</label><label class="check"><input type="checkbox" value="coupe"> Coupe-vide</label><label class="check"><input type="checkbox" value="sondes"> Sondes stériles CH 4, 6, 8, 10 à adapter à l'enfant</label><label class="check"><input type="checkbox" value="nacl"> NaCl 0,9 % en unidoses stériles</label><label class="check"><input type="checkbox" value="gants"> Gants non stériles + SHA</label><label class="check"><input type="checkbox" value="satu"> Saturomètre fonctionnel en place</label><label class="check"><input type="checkbox" value="o2"> O₂ de secours + BAVU adapté au prématuré à proximité</label><label class="check"><input type="checkbox" value="tetine"> Tétine</label><label class="check"><input type="checkbox" value="thermo"> Thermomètre frontal</label></div><p><button class="cta" onclick="validateChecks('materialChecks',['vide','bocal','coupe','sondes','nacl','gants','satu','o2','tetine'],'material')">Valider</button></p><div class="feedback"></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Réglages</div><h1>Régler la pression d'aspiration</h1><div class="meterwrap"><div><label for="pop"><strong>Population</strong></label><select id="pop" class="choice" style="margin:8px 0 20px"><option value="prema">Prématuré ≤ 1 mois (&lt; 37 SA)</option><option value="term">Nouveau-né à terme</option></select><label for="gauge"><strong>Pression choisie</strong></label><input id="gauge" class="range" type="range" min="50" max="170" value="90" step="5" oninput="gaugeChanged(this.value)"><div class="valuebox" id="gaugeVal">90 mbar</div><p><button class="cta" onclick="validateGauge()">Valider le réglage</button></p><div id="gaugeFb" class="feedback"></div></div><div class="info"><strong>Repères du protocole</strong><p>Prématuré : <strong>80 à 105 mbar</strong></p><p>Nouveau-né à terme : <strong>105 à 130 mbar</strong></p><p>Limite maximale absolue : <strong>≤ 150 mbar</strong></p><p>Durée maximale du geste : <strong>5 à 10 s chez le prématuré</strong></p></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Avant le soin</div><h1>Préparer l'enfant et sécuriser le contexte</h1><div id="beforeChecks"><div class="checkgrid"><label class="check"><input type="checkbox" value="sha"> Hygiène des mains (SHA)</label><label class="check"><input type="checkbox" value="antalgie"> Succion non nutritive, emmaillotage, voix douce</label><label class="check"><input type="checkbox" value="deuxieme"> Prévoir une deuxième personne, parent ou soignant, pour contenir l'enfant</label><label class="check"><input type="checkbox" value="avantrepas"> Privilégier le soin avant les alimentations</label><label class="check"><input type="checkbox" value="apresrepas"> Réaliser le soin juste après l'alimentation</label></div><p><button class="cta" onclick="validateChecks('beforeChecks',['sha','antalgie','deuxieme','avantrepas'],'beforecare')">Valider</button></p><div class="feedback"></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">DRP - première intention</div><h1>Remettez les huit étapes dans l'ordre</h1><div class="media"><img src="assets/drp_position.svg" alt="Positionnement pour la DRP"></div><div id="orderDRP" class="sortlist">
+-<div class="sortitem">Évaluer l'encombrement<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Hygiène des mains (SHA)<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Mesures antalgiques + deuxième personne<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Installer en décubitus latéral, tête légèrement fléchie, narine vers le haut<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Instiller environ 1/2 pipette de NaCl 0,9 % (moins chez les plus petits)<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Retourner en décubitus latéral opposé et recommencer si nécessaire<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Observer la réponse : toux, éternuements, écoulement des sécrétions<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<div class="sortitem">Si insuffisant, passer au raisonnement ANP<select><option value="">Position…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+-<p><button class="cta" onclick="validateOrder()">Vérifier l'ordre</button></p><div class="feedback"></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">DRP - point à valider</div><h1>Une formulation du protocole doit être précisée</h1><div class="note"><strong>Avant publication aux apprenants :</strong> l'étape 5 du protocole indique « aspirer dans la narine opposée à l'aide de la souris ». Cet emplacement est volontairement réservé dans le prototype afin que l'équipe métier confirme le dispositif et la formulation à utiliser.</div><p>Le reste de la séquence DRP est déjà intégré. Ce point reste tracé pour éviter toute suppression silencieuse d'un élément du corpus.</p><span class="tag">Validation Morgane requise</span></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Réévaluer</div><h1>La DRP a été efficace</h1><p>Les voies aériennes sont libérées et le nouveau-né respire correctement. Que faites-vous ?</p><div class="choices"><button class="choice" onclick="choose(this,'stop_after_drp','anp','stop','fbStop')">A. Je réalise une ANP par précaution</button><button class="choice" onclick="choose(this,'stop_after_drp','aop','stop','fbStop')">B. Je réalise une AOP</button><button class="choice" onclick="choose(this,'stop_after_drp','stop','stop','fbStop')">C. J'arrête le soin</button></div><div id="fbStop" class="feedback" data-good="Oui. Si la DRP a libéré les voies aériennes, l'ANP n'est pas nécessaire." data-bad="Poursuivre par une aspiration n'est pas indiqué lorsque la DRP a suffi."></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">ANP - indication</div><h1>Cette fois, la DRP ne suffit pas</h1><p>L'encombrement persiste. Le protocole cite notamment : SpO₂ &lt; 88 %, bradycardie, signes de lutte, bouchon muqueux visible ou audible.</p><p>Quel geste peut alors être envisagé ?</p><div class="choices"><button class="choice" onclick="choose(this,'anp_indication','repeat','anp','fbAnp')">A. Répéter systématiquement la DRP</button><button class="choice" onclick="choose(this,'anp_indication','anp','anp','fbAnp')">B. ANP</button><button class="choice" onclick="choose(this,'anp_indication','aop','anp','fbAnp')">C. AOP systématique</button></div><div id="fbAnp" class="feedback" data-good="Oui. L'ANP est un geste ciblé lorsque l'encombrement persiste malgré la DRP et que les critères cliniques la justifient." data-bad="Revoyez l'algorithme : DRP d'abord, puis ANP si la DRP est insuffisante avec critères cliniques."></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">ANP / AOP - étapes communes</div><h1>Avant d'introduire la sonde</h1><div class="grid2"><div class="info"><strong>1. Confirmer l'indication</strong><p>Ne pas aspirer sans indication.</p><strong>2. Rassembler le matériel</strong><p>Vérifier la pression de l'aspiration murale.</p><strong>3. Hygiène des mains</strong><p>SHA, gants non stériles, sonde adaptée au poids de l'enfant.</p></div><div class="info"><strong>4. Mesures antalgiques</strong><p>Succion non nutritive (tétine G30), emmaillotage, voix douce, deuxième personne.</p><strong>5. Positionnement</strong><p>Décubitus dorsal, tête en légère extension (position neutre). Maintenir fermement mais sans forcer.</p></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">ANP - technique</div><h1>Réaliser une ANP</h1><div class="media"><img src="assets/anp_mesure.svg" alt="Mesure de profondeur avant ANP"></div><div class="media"><img src="assets/anp_geste.svg" alt="Geste ANP en trois temps"></div><div class="grid2"><div class="info"><strong>Mesurer</strong><p>De l'aile du nez au coin interne de l'œil ; si insuffisant, du bout du nez au lobe de l'oreille, longueur à ne jamais dépasser. Mettre un repère sur la sonde.</p></div><div class="info"><strong>Introduire</strong><p>Après quelques gouttes de NaCl 0,9 %, introduire sans aspirer, doucement, perpendiculairement au visage, selon le plancher de la cavité nasale, jusqu'au repère. Ne jamais forcer.</p></div></div><p><strong>Aspirer uniquement au retrait</strong>, lent et progressif. Durée totale : 5 à 10 secondes maximum. Ne pas réintroduire la sonde immédiatement.</p></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">AOP - indication et technique</div><h1>Réaliser une AOP</h1><div class="grid2"><div class="info"><strong>Indications du tableau technique</strong><p>Sécrétions visibles dans la bouche, bébé intubé et sédaté, ou bébé présentant un trouble de la déglutition.</p></div><div class="note"><strong>À harmoniser :</strong> l'algorithme parle simplement de « bébé intubé ». Cette divergence reste volontairement visible dans la version de travail.</div></div><div class="media"><img src="assets/aop_geste.svg" alt="Geste AOP"></div><p>Prévenir le bébé par une stimulation à l'oralité avec la sonde. Introduire sans aspirer, doucement, en débutant par l'intérieur des joues et, si nécessaire, jusqu'à l'arrière-gorge en évitant le réflexe nauséeux. Aspirer uniquement au retrait, lent et progressif.</p><div class="note"><strong>À valider avant publication :</strong> le protocole mentionne l'instillation de quelques gouttes d'EPPI avant l'introduction. La formulation est conservée dans la matrice mais non transformée en consigne définitive tant qu'elle n'est pas confirmée par l'équipe métier.</div><p>Durée totale : 5 à 10 secondes maximum. Ne pas réintroduire la sonde immédiatement.</p></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Sécurité pendant le geste</div><h1>Surveiller et savoir s'arrêter</h1><p>Surveiller en continu : <strong>FC, SpO₂, coloration et tonus</strong>. O₂ de secours à portée de main.</p><div class="monitor"><div class="vital"><div class="lab">FC</div><div class="num" id="fc">132</div><div>bpm</div></div><div class="vital"><div class="lab">SpO₂</div><div class="num" id="spo">94</div><div>%</div></div></div><p><button class="cta secondary" onclick="startVitals()">Démarrer la simulation</button> <button class="cta danger" onclick="stopVitals()">Arrêter le geste</button></p><div id="vitalFb" class="feedback"></div><div class="note"><strong>Seuils d'arrêt immédiat :</strong> FC &lt; 100 bpm ou SpO₂ &lt; 85 %.</div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Précautions particulières</div><h1>Trois situations à retenir</h1><div class="grid3"><div class="info"><strong>Alimentation</strong><p>Privilégier la réalisation du soin avant les alimentations.</p></div><div class="info"><strong>Gazométrie</strong><p>Ne pas réaliser de gazométrie immédiatement après l'ANP.</p></div><div class="info"><strong>Cas particulier</strong><p>En cas de doute, de malformation ORL, pneumothorax… discuter avec le médecin et faire préciser la conduite à tenir par prescription médicale.</p></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Après le geste</div><h1>Confort et traçabilité</h1><div id="afterChecks"><div class="checkgrid"><label class="check"><input type="checkbox" value="douleur"> Évaluer la douleur et la tolérance</label><label class="check"><input type="checkbox" value="reposition"> Repositionner confortablement l'enfant</label><label class="check"><input type="checkbox" value="succion"> Proposer succion non nutritive ou peau-à-peau</label><label class="check"><input type="checkbox" value="heure"> Tracer l'heure et l'indication</label><label class="check"><input type="checkbox" value="passages"> Tracer le nombre de passages</label><label class="check"><input type="checkbox" value="secretions"> Tracer aspect/quantité des sécrétions</label><label class="check"><input type="checkbox" value="score"> Tracer score de douleur / tolérance</label><label class="check"><input type="checkbox" value="incidents"> Tracer les incidents</label><label class="check"><input type="checkbox" value="gaz"> Faire systématiquement une gazométrie</label></div><p><button class="cta" onclick="validateChecks('afterChecks',['douleur','reposition','succion','heure','passages','secretions','score','incidents'],'aftercare')">Valider</button></p><div class="feedback"></div></div></div></section>
+-
+-<section class="screen"><div class="card"><div class="eyebrow">Évaluation intégrative</div><h1>Situation clinique finale</h1><p>Huit décisions successives permettent de vérifier le raisonnement professionnel, depuis l'observation jusqu'aux actions après le geste.</p><div id="finalCase"></div></div></section>
+-
+-<section class="screen"><div class="card resources"><div class="eyebrow">Conclusion</div><h1>L'essentiel à retenir</h1><div class="media"><img src="assets/algorithme.svg" alt="Synthèse de l'algorithme"></div><p><strong>Observer → DRP → réévaluer → arrêter si efficace → aspiration ciblée si nécessaire → surveiller → tracer.</strong></p><h2>Ressources</h2><a class="resourcebtn" href="resources/fiche_reflexe_aspiration.pdf" target="_blank">Fiche réflexe PDF</a><a class="resourcebtn" href="resources/protocole_aspiration_neonatologie.docx" target="_blank">Protocole complet</a><a class="resourcebtn" href="resources/matrice_couverture.csv" target="_blank">Matrice de couverture</a><h3>Documents associés mentionnés dans le protocole</h3><ul><li>Protocole de gestion de la douleur néonatologie (G30 %)</li><li>Affiche G30-SPEC-NEO-DO-45-2</li><li>Recommandation des pratiques en soins de développement - service de néonatologie</li></ul><h3>Documents de référence mentionnés dans le protocole</h3><ul><li>Pediadol - aspirations des voies aériennes : recommandations sur la douleur procédurale pédiatrique</li><li>CHUV - désencombrement nasal chez l'enfant de 0 à 18 ans</li><li>CHU Sainte-Justine - prélèvement / aspiration des sécrétions nasopharyngées</li><li>Université Claude Bernard Lyon - mémoire sur l'oralité du nouveau-né prématuré en néonatologie</li><li>AKCR - intérêt des aspirations nasopharyngées dans le désencombrement du nouveau-né et du nourrisson</li><li>Hôpitaux universitaires de Genève - désencombrement rhino-pharyngé</li><li>Respiratory Care, février 2022 - AARC Clinical Practice Guidelines: Artificial Airway Suctioning</li></ul><div class="note"><strong>Prototype v1 :</strong> les trois points métier signalés dans le parcours doivent être arbitrés avant une publication apprenant définitive.</div></div></section>
+-</main></div>
+-<footer class="footer"><div class="screenpos" id="pos">Écran 1</div><button class="iconbtn" id="prev">Précédent</button><button class="cta" id="next">Suivant</button></footer></div><script src="assets/scorm.js"></script><script src="assets/app.js"></script></body></html>
+\ No newline at end of file
++<!doctype html>
++<html lang="fr">
++ <head>
++  <meta charset="utf-8"/>
++  <meta content="width=device-width,initial-scale=1" name="viewport"/>
++  <title>
++   Aspiration en néonatologie | CHT Gaston Bourret
++  </title>
++  <link href="assets/style.css" rel="stylesheet"/>
++  <meta content="Formation clinique en ligne sur la DRP, l’ANP et l’AOP en service de néonatologie." name="description"/>
++  <meta content="#0b3448" name="theme-color"/>
++ </head>
++ <body>
++  <a class="skip-link" href="#course-stage">
++   Aller au contenu
++  </a>
++  <div class="app">
++   <header class="topbar">
++    <button aria-controls="courseNav" aria-expanded="false" aria-label="Ouvrir le parcours" class="menu-toggle" id="menuToggle" type="button">
++     ☰
++    </button>
++    <div class="brandlockup">
++     <img alt="CHT Gaston Bourret" class="logo" src="assets/logo_cht.png"/>
++     <div class="brandtext">
++      <div class="service-label">
++       Néonatologie · formation clinique
++      </div>
++      <div class="coursetitle">
++       Aspiration en néonatologie
++      </div>
++     </div>
++    </div>
++    <div class="top-actions">
++     <div class="progress-meta">
++      <span id="chapterLabel">
++       Comprendre
++      </span>
++      <span id="progressCount">
++       1 / 23
++      </span>
++     </div>
++     <div aria-label="Progression du parcours" class="progress">
++      <span id="bar">
++      </span>
++     </div>
++     <button aria-label="Entrer ou quitter le plein écran" class="iconbtn" id="fullscreenBtn" onclick="fullscreen()" title="Entrer ou quitter le plein écran" type="button">
++      Plein écran
++     </button>
++    </div>
++   </header>
++   <div class="main">
++    <nav aria-label="Navigation du module" class="nav" id="courseNav">
++     <div class="nav-head">
++      <div class="nav-title">
++       Parcours
++      </div>
++      <button aria-label="Fermer le parcours" class="nav-close" id="navClose" type="button">
++       ×
++      </button>
++     </div>
++     <p class="nav-intro">
++      6 étapes · 23 écrans
++     </p>
++     <div class="sec">
++      01 · Comprendre
++     </div>
++     <button data-go="0" type="button">
++      Accueil
++     </button>
++     <button data-go="2" type="button">
++      Situation initiale
++     </button>
++     <button data-go="4" type="button">
++      Trois gestes
++     </button>
++     <div class="sec">
++      02 · Décider
++     </div>
++     <button data-go="5" type="button">
++      Principe fondamental
++     </button>
++     <button data-go="7" type="button">
++      Algorithme
++     </button>
++     <div class="sec">
++      03 · Préparer
++     </div>
++     <button data-go="8" type="button">
++      Matériel
++     </button>
++     <button data-go="9" type="button">
++      Réglages
++     </button>
++     <button data-go="10" type="button">
++      Avant le soin
++     </button>
++     <div class="sec">
++      04 · DRP
++     </div>
++     <button data-go="11" type="button">
++      DRP étape par étape
++     </button>
++     <button data-go="13" type="button">
++      Savoir s’arrêter
++     </button>
++     <div class="sec">
++      05 · ANP / AOP
++     </div>
++     <button data-go="14" type="button">
++      Indication ANP
++     </button>
++     <button data-go="16" type="button">
++      Geste ANP
++     </button>
++     <button data-go="17" type="button">
++      Geste AOP
++     </button>
++     <div class="sec">
++      06 · Sécuriser
++     </div>
++     <button data-go="18" type="button">
++      Surveillance
++     </button>
++     <button data-go="19" type="button">
++      Précautions
++     </button>
++     <button data-go="20" type="button">
++      Après le geste
++     </button>
++     <button data-go="21" type="button">
++      Situation finale
++     </button>
++    </nav>
++    <main class="stage" id="course-stage">
++     <section class="screen">
++      <div class="card hero">
++       <div>
++        <div class="eyebrow">
++         Formation clinique · 20–25 min
++        </div>
++        <h1>
++         Un nouveau-né est encombré.
++         <br/>
++         Faut-il aspirer ?
++        </h1>
++        <p class="lead">
++         Pas toujours. Vous allez vous entraîner à observer la situation, choisir le geste adapté, le réaliser en sécurité et savoir quand vous arrêter.
++        </p>
++        <div class="pillrow">
++         <span class="pill">
++          Décider quand intervenir
++         </span>
++         <span class="pill">
++          Distinguer DRP / ANP / AOP
++         </span>
++         <span class="pill">
++          Sécuriser le geste
++         </span>
++         <span class="pill">
++          20-25 min
++         </span>
++        </div>
++        <p>
++         <button class="cta" onclick="showScreen(1)">
++          Commencer
++         </button>
++        </p>
++       </div>
++       <div class="hero-panel">
++        <img alt="Schéma : observer, DRP, réévaluer, aspiration ciblée si nécessaire" class="hero-visual" src="assets/hero_signal.svg"/>
++        <div class="hero-principle">
++         <strong>
++          Principe directeur
++         </strong>
++         <p>
++          L’aspiration est un geste ciblé, non systématique. La décision vient après l’observation et la réévaluation.
++         </p>
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Cadre du protocole
++       </div>
++       <h1>
++        À qui s'adresse ce parcours ?
++       </h1>
++       <div class="grid2">
++        <div class="info">
++         <strong>
++          Service concerné
++         </strong>
++         <p>
++          Médecine et réanimation néonatale du CHT Gaston Bourret.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          Professionnels concernés
++         </strong>
++         <p>
++          Personnel infirmier et infirmier puériculteur intervenant auprès des nouveau-nés hospitalisés dans le service.
++         </p>
++        </div>
++       </div>
++       <h3>
++        Finalité
++       </h3>
++       <p>
++        Encadrer la DRP, l'ANP et/ou l'AOP chez le nouveau-né hospitalisé : des gestes ciblés, non systématiques, réalisés en sécurité et dans le respect du confort de l'enfant, conformément aux recommandations en vigueur mentionnées dans le protocole.
++       </p>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Positionnement initial
++       </div>
++       <h1>
++        Un nouveau-né semble encombré
++       </h1>
++       <p>
++        Quelle est votre première intervention ?
++       </p>
++       <div class="choices">
++        <button class="choice" onclick="choose(this,'initial','anp','eval','fbInitial')">
++         <span class="choice-key">
++          A
++         </span>
++         <span class="choice-text">
++          Je réalise immédiatement une ANP
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'initial','eval','eval','fbInitial')">
++         <span class="choice-key">
++          B
++         </span>
++         <span class="choice-text">
++          Je commence par évaluer l'encombrement
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'initial','systematic','eval','fbInitial')">
++         <span class="choice-key">
++          C
++         </span>
++         <span class="choice-text">
++          Je réalise systématiquement une aspiration
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'initial','aop','eval','fbInitial')">
++         <span class="choice-key">
++          D
++         </span>
++         <span class="choice-text">
++          Je réalise une AOP
++         </span>
++        </button>
++       </div>
++       <div class="feedback" data-bad="Pas encore. L'aspiration n'est pas un soin systématique. La première étape consiste à évaluer la situation." data-good="Oui. Avant toute décision, le protocole demande d'évaluer l'encombrement." id="fbInitial">
++       </div>
++       <div class="tracking-note">
++        Votre choix est mémorisé pour comparer votre raisonnement au fil du parcours.
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Observer avant d'agir
++       </div>
++       <h1>
++        Que devez-vous évaluer ?
++       </h1>
++       <div class="media">
++        <img alt="Bruits respiratoires, dynamique respiratoire, SpO2 et tolérance" src="assets/observation.svg"/>
++       </div>
++       <div id="observeChecks">
++        <div class="checkgrid">
++         <label class="check">
++          <input type="checkbox" value="bruits"/>
++          Bruits respiratoires
++         </label>
++         <label class="check">
++          <input type="checkbox" value="dynamique"/>
++          Dynamique respiratoire
++         </label>
++         <label class="check">
++          <input type="checkbox" value="spo"/>
++          SpO₂
++         </label>
++         <label class="check">
++          <input type="checkbox" value="tolerance"/>
++          Tolérance
++         </label>
++         <label class="check">
++          <input type="checkbox" value="poids"/>
++          Poids du jour
++         </label>
++         <label class="check">
++          <input type="checkbox" value="temperature"/>
++          Température de la chambre
++         </label>
++        </div>
++        <p>
++         <button class="cta" onclick="validateChecks('observeChecks',['bruits','dynamique','spo','tolerance'],'observation')">
++          Valider
++         </button>
++        </p>
++        <div class="feedback">
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Vocabulaire utile
++       </div>
++       <h1>
++        Trois gestes, trois définitions
++       </h1>
++       <div class="grid3">
++        <div class="info">
++         <strong>
++          DRP
++         </strong>
++         <p>
++          Désobstruction rhino-pharyngée : instillation de sérum physiologique destinée à fluidifier et drainer les sécrétions nasales. Geste préalable à toute aspiration.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          ANP
++         </strong>
++         <p>
++          Aspiration naso-pharyngée : aspiration par pression négative des sécrétions présentes dans le nasopharynx à l'aide d'une sonde stérile, lorsque le prématuré ne peut les éliminer seul.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          AOP
++         </strong>
++         <p>
++          Aspiration oropharyngée : aspiration par pression négative des sécrétions présentes dans la bouche à l'aide d'une sonde stérile, lorsque le prématuré ne peut les éliminer seul.
++         </p>
++        </div>
++       </div>
++       <h3>
++        Abréviations
++       </h3>
++       <p>
++        <strong>
++         CH
++        </strong>
++        : Charrière - unité de mesure du diamètre des sondes.
++        <strong>
++         FC
++        </strong>
++        : fréquence cardiaque.
++        <strong>
++         SpO₂
++        </strong>
++        : saturation pulsée en oxygène.
++       </p>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Principe fondamental
++       </div>
++       <h1>
++        L'ANP n'est pas un soin systématique
++       </h1>
++       <div class="media">
++        <img alt="Algorithme décisionnel" src="assets/algorithme.svg"/>
++       </div>
++       <div class="note">
++        <strong>
++         À retenir :
++        </strong>
++        la DRP doit toujours être réalisée en premier. L'aspiration ne se justifie que si la DRP est insuffisante et si des critères cliniques objectifs la rendent nécessaire. Un nouveau-né qui respire correctement après une DRP ne doit pas être aspiré.
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Pourquoi ce changement de réflexe ?
++       </div>
++       <h1>
++        Chaque aspiration inutile expose à des risques
++       </h1>
++       <div class="riskgrid">
++        <div class="risk">
++         Douleur et stress
++        </div>
++        <div class="risk">
++         Bradycardie vagale et apnée réflexe
++        </div>
++        <div class="risk">
++         Lésions des muqueuses nasales
++        </div>
++        <div class="risk">
++         Troubles de l'oralité à long terme
++        </div>
++        <div class="risk">
++         Augmentation de la pression intracrânienne
++        </div>
++       </div>
++       <p class="lead" style="margin-top:20px">
++        L'objectif n'est donc pas « d'aspirer par habitude », mais de décider selon la situation clinique.
++       </p>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Décision clinique
++       </div>
++       <h1>
++        L'algorithme complet
++       </h1>
++       <div class="media">
++        <img alt="Algorithme décisionnel" src="assets/algorithme.svg"/>
++       </div>
++       <div class="grid2">
++        <div class="info">
++         <strong>
++          ANP
++         </strong>
++         <p>
++          Encombrement persistant après DRP, avec bruits respiratoires anormaux audibles et/ou signes cliniques tels que désaturation, bradycardie ou lutte respiratoire, en lien avec un obstacle mécanique non résolu.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          AOP
++         </strong>
++         <p>
++          L'algorithme mentionne : bébé intubé ou sécrétions buccales visibles.
++         </p>
++         <span class="tag">
++          Cohérence du protocole à confirmer
++         </span>
++         <p style="font-size:15px">
++          Le tableau technique mentionne par ailleurs « bébé intubé et sédaté » et le trouble de la déglutition.
++         </p>
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Préparer le soin
++       </div>
++       <h1>
++        Le matériel nécessaire
++       </h1>
++       <p>
++        Sélectionnez tous les éléments attendus.
++       </p>
++       <div id="materialChecks">
++        <div class="checkgrid">
++         <label class="check">
++          <input type="checkbox" value="vide"/>
++          Source de vide médicale avec manomètre pédiatrique réglable
++         </label>
++         <label class="check">
++          <input type="checkbox" value="bocal"/>
++          Bocal et tuyau d'aspiration stérile à usage unique par patient
++         </label>
++         <label class="check">
++          <input type="checkbox" value="coupe"/>
++          Coupe-vide
++         </label>
++         <label class="check">
++          <input type="checkbox" value="sondes"/>
++          Sondes stériles CH 4, 6, 8, 10 à adapter à l'enfant
++         </label>
++         <label class="check">
++          <input type="checkbox" value="nacl"/>
++          NaCl 0,9 % en unidoses stériles
++         </label>
++         <label class="check">
++          <input type="checkbox" value="gants"/>
++          Gants non stériles + SHA
++         </label>
++         <label class="check">
++          <input type="checkbox" value="satu"/>
++          Saturomètre fonctionnel en place
++         </label>
++         <label class="check">
++          <input type="checkbox" value="o2"/>
++          O₂ de secours + BAVU adapté au prématuré à proximité
++         </label>
++         <label class="check">
++          <input type="checkbox" value="tetine"/>
++          Tétine
++         </label>
++         <label class="check">
++          <input type="checkbox" value="thermo"/>
++          Thermomètre frontal
++         </label>
++        </div>
++        <p>
++         <button class="cta" onclick="validateChecks('materialChecks',['vide','bocal','coupe','sondes','nacl','gants','satu','o2','tetine'],'material')">
++          Valider
++         </button>
++        </p>
++        <div class="feedback">
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Réglages
++       </div>
++       <h1>
++        Régler la pression d'aspiration
++       </h1>
++       <div class="meterwrap">
++        <div>
++         <label for="pop">
++          <strong>
++           Population
++          </strong>
++         </label>
++         <select class="choice" id="pop" style="margin:8px 0 20px">
++          <option value="prema">
++           Prématuré ≤ 1 mois (&lt; 37 SA)
++          </option>
++          <option value="term">
++           Nouveau-né à terme
++          </option>
++         </select>
++         <label for="gauge">
++          <strong>
++           Pression choisie
++          </strong>
++         </label>
++         <input class="range" id="gauge" max="170" min="50" oninput="gaugeChanged(this.value)" step="5" type="range" value="90"/>
++         <div class="valuebox" id="gaugeVal">
++          90 mbar
++         </div>
++         <p>
++          <button class="cta" onclick="validateGauge()">
++           Valider le réglage
++          </button>
++         </p>
++         <div class="feedback" id="gaugeFb">
++         </div>
++        </div>
++        <div class="info">
++         <strong>
++          Repères du protocole
++         </strong>
++         <p>
++          Prématuré :
++          <strong>
++           80 à 105 mbar
++          </strong>
++         </p>
++         <p>
++          Nouveau-né à terme :
++          <strong>
++           105 à 130 mbar
++          </strong>
++         </p>
++         <p>
++          Limite maximale absolue :
++          <strong>
++           ≤ 150 mbar
++          </strong>
++         </p>
++         <p>
++          Durée maximale du geste :
++          <strong>
++           5 à 10 s chez le prématuré
++          </strong>
++         </p>
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Avant le soin
++       </div>
++       <h1>
++        Préparer l'enfant et sécuriser le contexte
++       </h1>
++       <div id="beforeChecks">
++        <div class="checkgrid">
++         <label class="check">
++          <input type="checkbox" value="sha"/>
++          Hygiène des mains (SHA)
++         </label>
++         <label class="check">
++          <input type="checkbox" value="antalgie"/>
++          Succion non nutritive, emmaillotage, voix douce
++         </label>
++         <label class="check">
++          <input type="checkbox" value="deuxieme"/>
++          Prévoir une deuxième personne, parent ou soignant, pour contenir l'enfant
++         </label>
++         <label class="check">
++          <input type="checkbox" value="avantrepas"/>
++          Privilégier le soin avant les alimentations
++         </label>
++         <label class="check">
++          <input type="checkbox" value="apresrepas"/>
++          Réaliser le soin juste après l'alimentation
++         </label>
++        </div>
++        <p>
++         <button class="cta" onclick="validateChecks('beforeChecks',['sha','antalgie','deuxieme','avantrepas'],'beforecare')">
++          Valider
++         </button>
++        </p>
++        <div class="feedback">
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        DRP - première intention
++       </div>
++       <h1>
++        Remettez les huit étapes dans l'ordre
++       </h1>
++       <div class="media">
++        <img alt="Positionnement pour la DRP" src="assets/drp_position.svg"/>
++       </div>
++       <div class="sortlist" id="orderDRP">
++        <div class="sortitem">
++         Évaluer l'encombrement
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Hygiène des mains (SHA)
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Mesures antalgiques + deuxième personne
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Installer en décubitus latéral, tête légèrement fléchie, narine vers le haut
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Instiller environ 1/2 pipette de NaCl 0,9 % (moins chez les plus petits)
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Retourner en décubitus latéral opposé et recommencer si nécessaire
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Observer la réponse : toux, éternuements, écoulement des sécrétions
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <div class="sortitem">
++         Si insuffisant, passer au raisonnement ANP
++         <select>
++          <option value="">
++           Position…
++          </option>
++          <option>
++           1
++          </option>
++          <option>
++           2
++          </option>
++          <option>
++           3
++          </option>
++          <option>
++           4
++          </option>
++          <option>
++           5
++          </option>
++          <option>
++           6
++          </option>
++          <option>
++           7
++          </option>
++          <option>
++           8
++          </option>
++         </select>
++        </div>
++        <p>
++         <button class="cta" onclick="validateOrder()">
++          Vérifier l'ordre
++         </button>
++        </p>
++        <div class="feedback">
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        DRP · repère du protocole
++       </div>
++       <h1>
++        Instillation et drainage : formulation source
++       </h1>
++       <div class="note">
++        <strong>
++         Texte du protocole :
++        </strong>
++        « instiller environ la moitié de la pipette (…) et simultanément aspirer dans la narine opposée à l’aide de la souris ».
++       </div>
++       <p>
++        Ce repère est conservé tel qu’il figure dans le corpus. Le terme « souris » reste à préciser par l’équipe métier avant diffusion apprenant.
++       </p>
++       <span class="tag">
++        Validation métier en cours
++       </span>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Réévaluer
++       </div>
++       <h1>
++        La DRP a été efficace
++       </h1>
++       <p>
++        Les voies aériennes sont libérées et le nouveau-né respire correctement. Que faites-vous ?
++       </p>
++       <div class="choices">
++        <button class="choice" onclick="choose(this,'stop_after_drp','anp','stop','fbStop')">
++         <span class="choice-key">
++          A
++         </span>
++         <span class="choice-text">
++          Je réalise une ANP par précaution
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'stop_after_drp','aop','stop','fbStop')">
++         <span class="choice-key">
++          B
++         </span>
++         <span class="choice-text">
++          Je réalise une AOP
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'stop_after_drp','stop','stop','fbStop')">
++         <span class="choice-key">
++          C
++         </span>
++         <span class="choice-text">
++          J'arrête le soin
++         </span>
++        </button>
++       </div>
++       <div class="feedback" data-bad="Poursuivre par une aspiration n'est pas indiqué lorsque la DRP a suffi." data-good="Oui. Si la DRP a libéré les voies aériennes, l'ANP n'est pas nécessaire." id="fbStop">
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        ANP - indication
++       </div>
++       <h1>
++        Cette fois, la DRP ne suffit pas
++       </h1>
++       <p>
++        L'encombrement persiste. Le protocole cite notamment : SpO₂ &lt; 88 %, bradycardie, signes de lutte, bouchon muqueux visible ou audible.
++       </p>
++       <p>
++        Quel geste peut alors être envisagé ?
++       </p>
++       <div class="choices">
++        <button class="choice" onclick="choose(this,'anp_indication','repeat','anp','fbAnp')">
++         <span class="choice-key">
++          A
++         </span>
++         <span class="choice-text">
++          Répéter systématiquement la DRP
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'anp_indication','anp','anp','fbAnp')">
++         <span class="choice-key">
++          B
++         </span>
++         <span class="choice-text">
++          ANP
++         </span>
++        </button>
++        <button class="choice" onclick="choose(this,'anp_indication','aop','anp','fbAnp')">
++         <span class="choice-key">
++          C
++         </span>
++         <span class="choice-text">
++          AOP systématique
++         </span>
++        </button>
++       </div>
++       <div class="feedback" data-bad="Revoyez l'algorithme : DRP d'abord, puis ANP si la DRP est insuffisante avec critères cliniques." data-good="Oui. L'ANP est un geste ciblé lorsque l'encombrement persiste malgré la DRP et que les critères cliniques la justifient." id="fbAnp">
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        ANP / AOP - étapes communes
++       </div>
++       <h1>
++        Avant d'introduire la sonde
++       </h1>
++       <div class="grid2">
++        <div class="info">
++         <strong>
++          1. Confirmer l'indication
++         </strong>
++         <p>
++          Ne pas aspirer sans indication.
++         </p>
++         <strong>
++          2. Rassembler le matériel
++         </strong>
++         <p>
++          Vérifier la pression de l'aspiration murale.
++         </p>
++         <strong>
++          3. Hygiène des mains
++         </strong>
++         <p>
++          SHA, gants non stériles, sonde adaptée au poids de l'enfant.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          4. Mesures antalgiques
++         </strong>
++         <p>
++          Succion non nutritive (tétine G30), emmaillotage, voix douce, deuxième personne.
++         </p>
++         <strong>
++          5. Positionnement
++         </strong>
++         <p>
++          Décubitus dorsal, tête en légère extension (position neutre). Maintenir fermement mais sans forcer.
++         </p>
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        ANP - technique
++       </div>
++       <h1>
++        Réaliser une ANP
++       </h1>
++       <div class="media">
++        <img alt="Mesure de profondeur avant ANP" src="assets/anp_mesure.svg"/>
++       </div>
++       <div class="media">
++        <img alt="Geste ANP en trois temps" src="assets/anp_geste.svg"/>
++       </div>
++       <div class="grid2">
++        <div class="info">
++         <strong>
++          Mesurer
++         </strong>
++         <p>
++          De l'aile du nez au coin interne de l'œil ; si insuffisant, du bout du nez au lobe de l'oreille, longueur à ne jamais dépasser. Mettre un repère sur la sonde.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          Introduire
++         </strong>
++         <p>
++          Après quelques gouttes de NaCl 0,9 %, introduire sans aspirer, doucement, perpendiculairement au visage, selon le plancher de la cavité nasale, jusqu'au repère. Ne jamais forcer.
++         </p>
++        </div>
++       </div>
++       <p>
++        <strong>
++         Aspirer uniquement au retrait
++        </strong>
++        , lent et progressif. Durée totale : 5 à 10 secondes maximum. Ne pas réintroduire la sonde immédiatement.
++       </p>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        AOP - indication et technique
++       </div>
++       <h1>
++        Réaliser une AOP
++       </h1>
++       <div class="grid2">
++        <div class="info">
++         <strong>
++          Indications du tableau technique
++         </strong>
++         <p>
++          Sécrétions visibles dans la bouche, bébé intubé et sédaté, ou bébé présentant un trouble de la déglutition.
++         </p>
++        </div>
++        <div class="note">
++         <strong>
++          Point de cohérence du protocole.
++         </strong>
++         L’algorithme mentionne « bébé intubé » ; le tableau technique précise « bébé intubé et sédaté ».
++        </div>
++       </div>
++       <div class="media">
++        <img alt="Geste AOP" src="assets/aop_geste.svg"/>
++       </div>
++       <p>
++        Prévenir le bébé par une stimulation à l'oralité avec la sonde. Introduire sans aspirer, doucement, en débutant par l'intérieur des joues et, si nécessaire, jusqu'à l'arrière-gorge en évitant le réflexe nauséeux. Aspirer uniquement au retrait, lent et progressif.
++       </p>
++       <div class="note">
++        <strong>
++         Formulation source à confirmer.
++        </strong>
++        Le protocole mentionne l’instillation de quelques gouttes d’EPPI avant l’introduction. Ce point est conservé sans interprétation jusqu’à validation métier.
++       </div>
++       <p>
++        Durée totale : 5 à 10 secondes maximum. Ne pas réintroduire la sonde immédiatement.
++       </p>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Sécurité pendant le geste
++       </div>
++       <h1>
++        Surveiller et savoir s'arrêter
++       </h1>
++       <p>
++        Surveiller en continu :
++        <strong>
++         FC, SpO₂, coloration et tonus
++        </strong>
++        . O₂ de secours à portée de main.
++       </p>
++       <div class="monitor">
++        <div class="vital">
++         <div class="lab">
++          FC
++         </div>
++         <div class="num" id="fc">
++          132
++         </div>
++         <div>
++          bpm
++         </div>
++        </div>
++        <div class="vital">
++         <div class="lab">
++          SpO₂
++         </div>
++         <div class="num" id="spo">
++          94
++         </div>
++         <div>
++          %
++         </div>
++        </div>
++       </div>
++       <p>
++        <button class="cta secondary" onclick="startVitals()">
++         Démarrer la simulation
++        </button>
++        <button class="cta danger" onclick="stopVitals()">
++         Arrêter le geste
++        </button>
++       </p>
++       <div class="feedback" id="vitalFb">
++       </div>
++       <div class="note">
++        <strong>
++         Seuils d'arrêt immédiat :
++        </strong>
++        FC &lt; 100 bpm ou SpO₂ &lt; 85 %.
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Précautions particulières
++       </div>
++       <h1>
++        Trois situations à retenir
++       </h1>
++       <div class="grid3">
++        <div class="info">
++         <strong>
++          Alimentation
++         </strong>
++         <p>
++          Privilégier la réalisation du soin avant les alimentations.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          Gazométrie
++         </strong>
++         <p>
++          Ne pas réaliser de gazométrie immédiatement après l'ANP.
++         </p>
++        </div>
++        <div class="info">
++         <strong>
++          Cas particulier
++         </strong>
++         <p>
++          En cas de doute, de malformation ORL, pneumothorax… discuter avec le médecin et faire préciser la conduite à tenir par prescription médicale.
++         </p>
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Après le geste
++       </div>
++       <h1>
++        Confort et traçabilité
++       </h1>
++       <div id="afterChecks">
++        <div class="checkgrid">
++         <label class="check">
++          <input type="checkbox" value="douleur"/>
++          Évaluer la douleur et la tolérance
++         </label>
++         <label class="check">
++          <input type="checkbox" value="reposition"/>
++          Repositionner confortablement l'enfant
++         </label>
++         <label class="check">
++          <input type="checkbox" value="succion"/>
++          Proposer succion non nutritive ou peau-à-peau
++         </label>
++         <label class="check">
++          <input type="checkbox" value="heure"/>
++          Tracer l'heure et l'indication
++         </label>
++         <label class="check">
++          <input type="checkbox" value="passages"/>
++          Tracer le nombre de passages
++         </label>
++         <label class="check">
++          <input type="checkbox" value="secretions"/>
++          Tracer aspect/quantité des sécrétions
++         </label>
++         <label class="check">
++          <input type="checkbox" value="score"/>
++          Tracer score de douleur / tolérance
++         </label>
++         <label class="check">
++          <input type="checkbox" value="incidents"/>
++          Tracer les incidents
++         </label>
++         <label class="check">
++          <input type="checkbox" value="gaz"/>
++          Faire systématiquement une gazométrie
++         </label>
++        </div>
++        <p>
++         <button class="cta" onclick="validateChecks('afterChecks',['douleur','reposition','succion','heure','passages','secretions','score','incidents'],'aftercare')">
++          Valider
++         </button>
++        </p>
++        <div class="feedback">
++        </div>
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card">
++       <div class="eyebrow">
++        Évaluation intégrative
++       </div>
++       <h1>
++        Situation clinique finale
++       </h1>
++       <p>
++        Huit décisions successives permettent de vérifier le raisonnement professionnel, depuis l'observation jusqu'aux actions après le geste.
++       </p>
++       <div id="finalCase">
++       </div>
++      </div>
++     </section>
++     <section class="screen">
++      <div class="card resources">
++       <div class="eyebrow">
++        Conclusion
++       </div>
++       <h1>
++        L'essentiel à retenir
++       </h1>
++       <div class="media">
++        <img alt="Synthèse de l'algorithme" src="assets/algorithme.svg"/>
++       </div>
++       <p>
++        <strong>
++         Observer → DRP → réévaluer → arrêter si efficace → aspiration ciblée si nécessaire → surveiller → tracer.
++        </strong>
++       </p>
++       <h2>
++        Ressources
++       </h2>
++       <a class="resourcebtn" href="resources/fiche_reflexe_aspiration.pdf" target="_blank">
++        Fiche réflexe PDF
++       </a>
++       <a class="resourcebtn" href="resources/protocole_aspiration_neonatologie.docx" target="_blank">
++        Protocole complet
++       </a>
++       <a class="resourcebtn" href="resources/matrice_couverture.csv" target="_blank">
++        Matrice de couverture
++       </a>
++       <h3>
++        Documents associés mentionnés dans le protocole
++       </h3>
++       <ul>
++        <li>
++         Protocole de gestion de la douleur néonatologie (G30 %)
++        </li>
++        <li>
++         Affiche G30-SPEC-NEO-DO-45-2
++        </li>
++        <li>
++         Recommandation des pratiques en soins de développement - service de néonatologie
++        </li>
++       </ul>
++       <h3>
++        Documents de référence mentionnés dans le protocole
++       </h3>
++       <ul>
++        <li>
++         Pediadol - aspirations des voies aériennes : recommandations sur la douleur procédurale pédiatrique
++        </li>
++        <li>
++         CHUV - désencombrement nasal chez l'enfant de 0 à 18 ans
++        </li>
++        <li>
++         CHU Sainte-Justine - prélèvement / aspiration des sécrétions nasopharyngées
++        </li>
++        <li>
++         Université Claude Bernard Lyon - mémoire sur l'oralité du nouveau-né prématuré en néonatologie
++        </li>
++        <li>
++         AKCR - intérêt des aspirations nasopharyngées dans le désencombrement du nouveau-né et du nourrisson
++        </li>
++        <li>
++         Hôpitaux universitaires de Genève - désencombrement rhino-pharyngé
++        </li>
++        <li>
++         Respiratory Care, février 2022 - AARC Clinical Practice Guidelines: Artificial Airway Suctioning
++        </li>
++       </ul>
++       <div class="note">
++        <strong>
++         Avant diffusion apprenant :
++        </strong>
++        trois formulations du protocole restent soumises à validation métier. Elles sont documentées dans VALIDATION_METIER.md.
++       </div>
++      </div>
++     </section>
++    </main>
++    <button aria-label="Fermer le parcours" class="nav-overlay" id="navOverlay" type="button">
++    </button>
++   </div>
++   <footer class="footer">
++    <div class="footer-context">
++     <div class="screenpos" id="pos">
++      Écran 1 / 23
++     </div>
++     <div class="footer-hint" id="footerHint">
++      Comprendre · Accueil
++     </div>
++    </div>
++    <div class="footer-actions">
++     <button class="iconbtn nav-btn" id="prev" type="button">
++      Précédent
++     </button>
++     <button class="cta nav-btn" id="next" type="button">
++      Suivant
++     </button>
++    </div>
++   </footer>
++  </div>
++  <div aria-live="polite" class="toast" id="toast" role="status">
++  </div>
++  <script src="assets/tracking.js">
++  </script>
++  <script src="assets/app.js">
++  </script>
++ </body>
++</html>

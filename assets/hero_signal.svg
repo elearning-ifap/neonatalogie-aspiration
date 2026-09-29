@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-label="Observer, décider puis réévaluer avant toute aspiration ciblée">
+<defs><style>
+.t{font-family:'Segoe UI',Arial,sans-serif;fill:#12384b}.k{font-size:14px;font-weight:700;letter-spacing:1.2px}.h{font-size:23px;font-weight:750}.s{font-size:15px;font-weight:500;fill:#557583}.n{font-size:16px;font-weight:800;fill:white}.line{fill:none;stroke:#9fc9ce;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.node{fill:white;stroke:#cfe1e4;stroke-width:2}.accent{fill:#0b8d99}.warm{fill:#e9853c}
+</style></defs>
+<text x="42" y="44" class="t k">LOGIQUE DE DÉCISION</text>
+<path d="M84 132 H625" class="line"/>
+<g transform="translate(52 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">01</text><text x="0" y="102" class="t h">Observer</text><text x="0" y="127" class="t s">Signes cliniques</text></g>
+<g transform="translate(230 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">02</text><text x="0" y="102" class="t h">DRP</text><text x="0" y="127" class="t s">Première intention</text></g>
+<g transform="translate(408 96)"><circle cx="32" cy="36" r="31" class="accent"/><text x="32" y="42" text-anchor="middle" class="t n">03</text><text x="0" y="102" class="t h">Réévaluer</text><text x="0" y="127" class="t s">Effet obtenu ?</text></g>
+<g transform="translate(586 96)"><circle cx="32" cy="36" r="31" class="warm"/><text x="32" y="42" text-anchor="middle" class="t n">04</text><text x="-12" y="102" class="t h">Cibler</text><text x="-12" y="127" class="t s">ANP / AOP si indiqué</text></g>
+<g transform="translate(42 278)"><rect width="636" height="76" rx="16" fill="#eaf5ef" stroke="#cfe6d9"/><circle cx="34" cy="38" r="17" fill="#2e7d57"/><path d="M26 38 l6 6 11-13" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="68" y="33" class="t h" style="font-size:18px">Si la DRP est efficace : arrêt du soin.</text><text x="68" y="56" class="t s">La poursuite par aspiration n’est pas systématique.</text></g>
+</svg>
