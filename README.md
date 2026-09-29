@@ -1,37 +1,31 @@
-# Aspiration en néonatologie — version web v2
+# Aspiration en néonatologie — version web v3
 
-Formation clinique interactive destinée à une publication web/GitHub avant packaging SCORM pour Moodle.
+Formation clinique interactive construite à partir du protocole **Aspiration en service de néonatalogie** et du support d’équipe transmis par le service de néonatologie du CHT Gaston Bourret.
 
-![Aperçu du parcours](preview.png)
+## principes de la v3
 
-## Utilisation
+- couverture exhaustive et traçable du corpus source ;
+- aucune correction clinique implicite ;
+- trois formulations restent soumises à validation métier : « souris », « EPPI » et « bébé intubé » / « bébé intubé et sédaté » ;
+- infographies pédagogiques construites uniquement à partir du corpus ;
+- reprise locale de progression et interface responsive ;
+- plein écran disponible.
 
-Aucune compilation n’est nécessaire. Le site est statique :
+## fichiers principaux
 
-- `index.html` : parcours principal ;
+- `index.html` : parcours web ;
 - `assets/style.css` : design system et responsive ;
-- `assets/app.js` : navigation, interactions, reprise locale et évaluation ;
-- `assets/tracking.js` : adaptateur de suivi web, prévu pour être remplacé/étendu au moment du packaging SCORM ;
-- `assets/*.svg` : schémas pédagogiques ;
-- `resources/` : protocole, fiche réflexe et matrice de couverture.
+- `assets/app.js` : navigation, interactions et évaluation ;
+- `assets/*.svg` : infographies pédagogiques ;
+- `resources/protocole_aspiration_neonatologie.docx` : protocole source ;
+- `resources/matrice_couverture_exhaustive_v3.csv` : contrôle exhaustif du corpus ;
+- `VALIDATION_METIER.md` : arbitrages métier avant diffusion ;
+- `AUDIT_CORPUS_V3.md` : résultat de la vérification v2 → v3.
 
-## Publication GitHub Pages
+## choix visuel de publication
 
-1. Décompresser le ZIP à la racine d’un dépôt GitHub.
-2. Conserver `index.html` à la racine.
-3. Dans GitHub : **Settings → Pages**.
-4. Choisir la branche de publication et le dossier racine `/`.
+La version publiée privilégie les infographies pédagogiques redessinées à partir du corpus. Les pictogrammes du support PowerPoint ne sont pas réutilisés lorsqu’ils n’apportent pas d’information supplémentaire à la compréhension.
 
-Le parcours ne dépend d’aucune bibliothèque externe ni d’aucune police distante.
+## publication
 
-## Suivi dans cette version
-
-La progression est conservée sur l’appareil via `localStorage`. Le futur packaging SCORM pourra conserver la même interface de suivi en remplaçant l’adaptateur `assets/tracking.js`.
-
-## Validation métier avant diffusion apprenant
-
-Voir `VALIDATION_METIER.md`. Trois formulations du protocole restent à confirmer : « souris » pour la DRP, « EPPI » pour l’AOP et la cohérence « bébé intubé » / « bébé intubé et sédaté ».
-
-## Revue design
-
-Voir `DESIGN_REVIEW.md` pour l’audit UX/UI et `CHANGES_EXACT.patch` pour le différentiel de code complet par rapport à la v1.
+Aucune compilation n’est nécessaire. Conserver `index.html` à la racine du dépôt et activer GitHub Pages sur la branche de publication souhaitée.
