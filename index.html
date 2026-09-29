@@ -274,7 +274,7 @@
         Que devez-vous évaluer ?
        </h1>
        <div class="media">
-        <img alt="Bruits respiratoires, dynamique respiratoire, SpO2 et tolérance" src="assets/observation.svg"/>
+        <img alt="Bruits respiratoires, dynamique respiratoire, SpO2 et tolérance" src="assets/observation_clinique.svg"/>
        </div>
        <div id="observeChecks">
         <div class="checkgrid">
@@ -375,8 +375,9 @@
         L'ANP n'est pas un soin systématique
        </h1>
        <div class="media">
-        <img alt="Algorithme décisionnel" src="assets/algorithme.svg"/>
+        <img alt="Algorithme complet de décision clinique DRP, ANP et AOP" src="assets/algorithme_complet.svg"/>
        </div>
+       <div class="note source-note"><strong>DRP : </strong>geste non invasif de première intention pour fluidifier et drainer les sécrétions. Si elle suffit à libérer les voies aériennes : STOP. Toujours dans cet ordre — chaque étape n’est franchie que si nécessaire.</div>
        <div class="note">
         <strong>
          À retenir :
@@ -403,9 +404,7 @@
         <div class="risk">
          Lésions des muqueuses nasales
         </div>
-        <div class="risk">
-         Troubles de l'oralité à long terme
-        </div>
+        <div class="risk">Troubles de l’oralité à long terme <span class="risk-detail">(aversion orale, difficultés d’alimentation)</span></div>
         <div class="risk">
          Augmentation de la pression intracrânienne
         </div>
@@ -483,7 +482,7 @@
          </label>
          <label class="check">
           <input type="checkbox" value="nacl"/>
-          NaCl 0,9 % en unidoses stériles
+          NaCl 0,9 % en unidoses stériles (DRP préalable)
          </label>
          <label class="check">
           <input type="checkbox" value="gants"/>
@@ -495,11 +494,11 @@
          </label>
          <label class="check">
           <input type="checkbox" value="o2"/>
-          O₂ de secours + BAVU adapté au prématuré à proximité
+          O₂ de secours + BAVU adapté au prématuré à proximité immédiate
          </label>
          <label class="check">
           <input type="checkbox" value="tetine"/>
-          Tétine
+          Tétine (mesure antalgique non pharmacologique)
          </label>
          <label class="check">
           <input type="checkbox" value="thermo"/>
@@ -608,7 +607,7 @@
          </label>
          <label class="check">
           <input type="checkbox" value="deuxieme"/>
-          Prévoir une deuxième personne, parent ou soignant, pour contenir l'enfant
+          Prévoir une deuxième personne, parent ou soignant, pour contenir l'enfant (soin à 4 mains si possible, selon le support d’équipe)
          </label>
          <label class="check">
           <input type="checkbox" value="avantrepas"/>
@@ -638,11 +637,11 @@
         Remettez les huit étapes dans l'ordre
        </h1>
        <div class="media">
-        <img alt="Positionnement pour la DRP" src="assets/drp_position.svg"/>
+        <img alt="Séquence illustrée de la DRP : évaluer, installer, instiller et drainer, changer de côté, réévaluer" src="assets/drp_sequence.svg"/>
        </div>
        <div class="sortlist" id="orderDRP">
         <div class="sortitem">
-         Évaluer l'encombrement
+         Évaluer l'encombrement — ne réaliser la DRP que si nécessaire
          <select>
           <option value="">
            Position…
@@ -770,7 +769,7 @@
          </select>
         </div>
         <div class="sortitem">
-         Instiller environ 1/2 pipette de NaCl 0,9 % (moins chez les plus petits)
+         Préparer une unidose de NaCl 0,9 % stérile ; instiller environ 1/2 pipette (moins chez les plus petits) et aspirer simultanément dans la narine opposée
          <select>
           <option value="">
            Position…
@@ -1069,10 +1068,7 @@
         Réaliser une ANP
        </h1>
        <div class="media">
-        <img alt="Mesure de profondeur avant ANP" src="assets/anp_mesure.svg"/>
-       </div>
-       <div class="media">
-        <img alt="Geste ANP en trois temps" src="assets/anp_geste.svg"/>
+        <img alt="ANP : mesurer la profondeur, introduire sans aspirer, aspirer au retrait" src="assets/anp_parcours.svg"/>
        </div>
        <div class="grid2">
         <div class="info">
@@ -1125,7 +1121,7 @@
         </div>
        </div>
        <div class="media">
-        <img alt="Geste AOP" src="assets/aop_geste.svg"/>
+        <img alt="AOP : stimulation à l’oralité, introduction sans aspiration et aspiration au retrait" src="assets/aop_parcours.svg"/>
        </div>
        <p>
         Prévenir le bébé par une stimulation à l'oralité avec la sonde. Introduire sans aspirer, doucement, en débutant par l'intérieur des joues et, si nécessaire, jusqu'à l'arrière-gorge en évitant le réflexe nauséeux. Aspirer uniquement au retrait, lent et progressif.
@@ -1315,7 +1311,7 @@
         L'essentiel à retenir
        </h1>
        <div class="media">
-        <img alt="Synthèse de l'algorithme" src="assets/algorithme.svg"/>
+        <img alt="Synthèse complète de l’algorithme décisionnel" src="assets/algorithme_complet.svg"/>
        </div>
        <p>
         <strong>
@@ -1331,8 +1327,8 @@
        <a class="resourcebtn" href="resources/protocole_aspiration_neonatologie.docx" target="_blank">
         Protocole complet
        </a>
-       <a class="resourcebtn" href="resources/matrice_couverture.csv" target="_blank">
-        Matrice de couverture
+       <a class="resourcebtn" href="resources/matrice_couverture_exhaustive_v3.csv" target="_blank">
+        Matrice de couverture exhaustive v3
        </a>
        <h3>
         Documents associés mentionnés dans le protocole
@@ -1352,28 +1348,23 @@
         Documents de référence mentionnés dans le protocole
        </h3>
        <ul>
-        <li>
-         Pediadol - aspirations des voies aériennes : recommandations sur la douleur procédurale pédiatrique
-        </li>
-        <li>
-         CHUV - désencombrement nasal chez l'enfant de 0 à 18 ans
-        </li>
-        <li>
-         CHU Sainte-Justine - prélèvement / aspiration des sécrétions nasopharyngées
-        </li>
-        <li>
-         Université Claude Bernard Lyon - mémoire sur l'oralité du nouveau-né prématuré en néonatologie
-        </li>
-        <li>
-         AKCR - intérêt des aspirations nasopharyngées dans le désencombrement du nouveau-né et du nourrisson
-        </li>
-        <li>
-         Hôpitaux universitaires de Genève - désencombrement rhino-pharyngé
-        </li>
-        <li>
-         Respiratory Care, février 2022 - AARC Clinical Practice Guidelines: Artificial Airway Suctioning
-        </li>
+        <li>Pediadol – Aspirations des voies aériennes : recommandations sur la douleur procédurale pédiatrique (pediadol.org)</li>
+        <li>CHUV désencombrement nasal chez l’enfant de 0-18ans.</li>
+        <li>CHU Sainte-Justine : prélèvement des sécrétions des voix aériennes via l’éprouvette « luki » et prélèvement par aspiration des sécrétions nasopharyngées.</li>
+        <li>Université Claude Bernard Lyon : Mémoire sur l’ORALITE DU NOUVEAU NE PREMATURE EN SERVICE DE NEONNATALOGIE</li>
+        <li>AKCR : Intérêt des aspirations nasopharyngés dans le désencombrement du nouveau-né et du nourrisson</li>
+        <li>Hôpitaux Universitaires de Genève : Technique Clinique relative au désencombrement rhino-pharyngé avec le système « mouche bébé »</li>
+        <li>Revue Respiratory Care février 2022 : AARC clinical practice Guidelines : Artificial Airway Suctioning</li>
        </ul>
+       <div class="source-provenance">
+        <h3>Source du protocole transmis</h3>
+        <div class="source-row"><strong>Support d’équipe</strong><span>« Présentation d’équipe — un geste ciblé, jamais systématique »</span></div>
+        <div class="source-row"><strong>Création</strong><span>Infirmier(ière) puériculteur(trice) — LE FLECHER Audrey ; NADOLNY Sabrina</span></div>
+        <div class="source-row"><strong>Validation</strong><span>Cadre de santé — CHENU Morgane ; DUPIN Emmanuelle</span></div>
+        <div class="source-row"><strong>Approbation</strong><span>Médecin — PIERRON Sophie</span></div>
+        <div class="source-row"><strong>Mots-clés</strong><span>Aspiration nasopharyngée · Désobstruction Rhino-Pharyngée (DRP) · Aspiration oropharyngée · Néonatalogie</span></div>
+        <div class="source-row"><strong>Repère service</strong><span>Le support d’équipe indique que le protocole complet reste disponible dans le classeur qualité du service.</span></div>
+       </div>
        <div class="note">
         <strong>
          Avant diffusion apprenant :
