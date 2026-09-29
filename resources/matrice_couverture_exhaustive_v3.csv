@@ -1,0 +1,63 @@
+Source;Localisation source;Élément du corpus;Intégration v3;Statut;Observation
+Protocole DOCX;en-tête;Titre : ASPIRATION EN SERVICE DE NEONATALOGIE;Écran 23 / ressources / provenance;Présent;"Titre source conservé dans le document téléchargeable ; module titré « Aspiration en néonatologie »."
+Protocole DOCX;en-tête;"Création : LE FLECHER Audrey ; NADOLNY Sabrina — infirmier(ière) puériculteur(trice)";Écran 23 / source du protocole;Présent;Ajouté en v3.
+Protocole DOCX;en-tête;"Validation : CHENU Morgane ; DUPIN Emmanuelle — cadre de santé";Écran 23 / source du protocole;Présent;Ajouté en v3.
+Protocole DOCX;en-tête;Approbation : PIERRON Sophie — médecin;Écran 23 / source du protocole;Présent;Ajouté en v3.
+Protocole DOCX;en-tête;Mots-clés : aspiration nasopharyngée, DRP, aspiration oropharyngée, néonatalogie;Écran 23 / source du protocole;Présent;Ajouté en v3.
+Protocole DOCX;I. Objet;"DRP / ANP / AOP ; geste ciblé, non systématique ; sécurité et confort ; recommandations en vigueur";Écrans 1-2;Présent;Couverture directe.
+Protocole DOCX;II. Domaine;Néonatalogie;Écran 2;Présent;Couverture directe.
+Protocole DOCX;III.A;Protocole de gestion de la douleur néonatologie (G30 %);Écran 23;Présent;Libellé conservé.
+Protocole DOCX;III.A;Affiche G30-SPEC-NEO-DO-45-2;Écran 23;Présent;Libellé conservé.
+Protocole DOCX;III.A;Recommandation des pratiques en soins de développement – service de néonatologie;Écran 23;Présent;Libellé conservé.
+Protocole DOCX;III.B;Pediadol – Aspirations des voies aériennes : recommandations sur la douleur procédurale pédiatrique (pediadol.org);Écran 23;Présent;Wording source rétabli en v3.
+Protocole DOCX;III.B;CHUV désencombrement nasal chez l’enfant de 0-18ans.;Écran 23;Présent;Wording source rétabli en v3.
+Protocole DOCX;III.B;CHU Sainte-Justine : prélèvement des sécrétions des voix aériennes via l’éprouvette « luki » et prélèvement par aspiration des sécrétions nasopharyngées.;Écran 23;Présent;Détail « luki » rétabli en v3.
+Protocole DOCX;III.B;Université Claude Bernard Lyon : Mémoire sur l’ORALITE DU NOUVEAU NE PREMATURE EN SERVICE DE NEONNATALOGIE;Écran 23;Présent;Wording source rétabli en v3.
+Protocole DOCX;III.B;AKCR : Intérêt des aspirations nasopharyngés dans le désencombrement du nouveau-né et du nourrisson;Écran 23;Présent;Wording source rétabli en v3.
+Protocole DOCX;III.B;HUG : désencombrement rhino-pharyngé avec le système « mouche bébé »;Écran 23;Présent;Détail « mouche bébé » rétabli en v3.
+Protocole DOCX;III.B;Respiratory Care février 2022 : AARC clinical practice Guidelines : Artificial Airway Suctioning;Écran 23;Présent;Wording source rétabli en v3.
+Protocole DOCX;IV;"Définition DRP : instillation sérum physiologique, fluidifier/drainer ; préalable à aspiration";Écran 5;Présent;Couverture directe.
+Protocole DOCX;IV;Définition ANP : pression négative nasopharynx, sonde stérile, lorsque le prématuré ne peut éliminer seul;Écran 5;Présent;Couverture directe.
+Protocole DOCX;IV;Définition AOP : pression négative bouche, sonde stérile, lorsque le prématuré ne peut éliminer seul;Écran 5;Présent;Couverture directe.
+Protocole DOCX;IV;Abréviations DRP, ANP, AOP, CH, FC, SpO₂;Écran 5;Présent;Couverture directe.
+Protocole DOCX;V;"Service médecine et réanimation néonatale ; personnel infirmier / puériculteur";Écran 2;Présent;Couverture directe.
+Protocole DOCX;VI.A;Source de vide + manomètre pédiatrique réglable;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;Bocal et tuyau stérile à usage unique par patient;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;Coupe-vide;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;Sondes stériles CH 4, 6, 8, 10 adaptées à l’enfant;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;NaCl 0,9 % en unidoses stériles (DRP préalable);Écran 9 + infographie matériel;Présent;Mention « DRP préalable » rétablie en v3.
+Protocole DOCX;VI.A;Gants non stériles + SHA;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;Saturomètre fonctionnel en place;Écran 9 + infographie matériel;Présent;Illustré en v3.
+Protocole DOCX;VI.A;O₂ de secours + BAVU adapté au prématuré à proximité immédiate;Écran 9 + infographie matériel;Présent;« proximité immédiate » rétabli en v3.
+Protocole DOCX;VI.A;Tétine (mesure antalgique non-pharmacologique);Écran 9 + infographie matériel;Présent;Qualification rétablie en v3.
+Protocole DOCX;VI.B;"Pressions : prématuré 80-105 mbar ; terme 105-130 ; limite ≤150 ; durée 5-10 s prématuré";Écran 10;Présent;Interaction + repères.
+Protocole DOCX;Principe fondamental;"ANP non systématique ; DRP d’abord ; aspiration si DRP insuffisante + critères ; pas d’aspiration si DRP efficace";Écrans 6, 8, 14;Présent;Fil rouge du parcours.
+Protocole DOCX;Risques;"Douleur/stress ; bradycardie vagale/apnée ; lésions muqueuses ; troubles oralité (aversion, difficultés alimentation) ; PIC";Écran 7;Présent;Exemples oralité rétablis en v3.
+Protocole DOCX;Algorithme;Évaluer bruits/dynamique, SpO₂, tolérance;Écrans 4 et 8 + infographie observation;Présent;Illustré en v3.
+Protocole DOCX;Algorithme;DRP : première intention, fluidifier/drainer, geste non invasif, STOP si efficace;Écran 8 + algorithme complet;Présent;« non invasif » et fluidifier/drainer explicites en v3.
+Protocole DOCX;Algorithme;ANP : DRP insuffisante, encombrement persistant, signes cliniques / obstacle mécanique non résolu;Écrans 8 et 15;Présent;Couverture directe.
+Protocole DOCX;Algorithme;AOP : bébé intubé / sécrétions buccales visibles;Écran 8;Présent;Conservé avec alerte de cohérence.
+Protocole DOCX;Précautions;"Soin avant alimentation ; pas de gazométrie juste après ANP ; cas particuliers → médecin + prescription";Écran 20;Présent;Couverture directe.
+Protocole DOCX;DRP 1;"Évaluer l’encombrement ; ne réaliser la DRP que si nécessaire";Écran 12 + infographie DRP;Présent;Phrase « que si nécessaire » rétablie en v3.
+Protocole DOCX;DRP 2;Hygiène des mains SHA;Écran 12;Présent;Couverture directe.
+Protocole DOCX;DRP 3;"Antalgie : tétine, emmaillotage, voix douce ; deuxième personne parent/soignant";Écrans 11-12 + infographie DRP;Présent;Support d’équipe « soin à 4 mains si possible » ajouté.
+Protocole DOCX;DRP 4;Décubitus latéral, tête légèrement fléchie, narine vers le haut;Écran 12 + infographie DRP;Présent;Illustré en v3.
+Protocole DOCX;DRP 5;Unidose NaCl 0,9 %, ~1/2 pipette, moins petits bébés, aspiration simultanée narine opposée à l’aide de la « souris »;Écrans 12-13 + infographie DRP;Présent / à valider;Terme « souris » conservé et signalé.
+Protocole DOCX;DRP 6;"Retourner en décubitus latéral opposé ; recommencer autre narine si nécessaire";Écran 12 + infographie DRP;Présent;Illustré en v3.
+Protocole DOCX;DRP 7;"Observer toux, éternuements, écoulement ; voies libérées → arrêt, pas d’ANP";Écrans 12, 14 + infographie DRP;Présent;Illustré en v3.
+Protocole DOCX;DRP 8;Si insuffisant / critères persistants → protocole ANP;Écrans 12, 15;Présent;Couverture directe.
+Protocole DOCX;ANP/AOP 1;"Indication ANP : DRP persistante + ≥1 critère dont SpO₂ <88 %, bradycardie, lutte, bouchon visible/audible ; ne pas aspirer sans indication";Écrans 15-16;Présent;Couverture directe.
+Protocole DOCX;ANP/AOP 1;Indication AOP : sécrétions bouche, bébé intubé et sédaté, trouble déglutition;Écran 18 + infographie AOP;Présent / cohérence à valider;Différence avec algorithme conservée.
+Protocole DOCX;ANP/AOP 2-5;Matériel, pression, SHA, gants, sonde adaptée au poids, antalgie, deuxième personne, décubitus dorsal tête légère extension, maintenir sans forcer;Écran 16;Présent;Couverture directe.
+Protocole DOCX;ANP 6;"Mesure aile nez → coin interne œil ; si insuffisant bout nez → lobe oreille ; ne pas dépasser ; repère sonde";Écran 17 + infographie ANP;Présent;Illustré en v3.
+Protocole DOCX;ANP 7;NaCl 0,9 %, introduire sans aspirer, doucement, perpendiculairement, plancher nasal, jusqu’au repère, ne jamais forcer;Écran 17 + infographie ANP;Présent;Illustré en v3.
+Protocole DOCX;AOP 6;Stimulation à l’oralité avec la sonde;Écran 18 + infographie AOP;Présent;Illustré en v3.
+Protocole DOCX;AOP 7;"Quelques gouttes d’EPPI ; introduire sans aspirer ; intérieur des joues ; si nécessaire arrière-gorge ; éviter réflexe nauséeux";Écran 18 + infographie AOP;Présent / à valider;EPPI conservé sans interprétation.
+Protocole DOCX;ANP/AOP 8;"Aspirer uniquement au retrait, lent/progressif ; 5-10 s max ; ne pas réintroduire immédiatement";Écrans 17-18 + infographies;Présent;Illustré en v3.
+Protocole DOCX;ANP/AOP 9;"Surveillance FC, SpO₂, coloration, tonus ; stop FC<100 ou SpO₂<85 ; O₂ secours";Écran 19;Présent;Simulation interactive.
+Protocole DOCX;ANP/AOP 10;Après geste : douleur/tolérance, repositionner, succion/peau-à-peau, tracer heure, indication, passages, sécrétions, tolérance, score douleur, incidents;Écran 21 + infographie après-soin;Présent;Illustré en v3.
+Présentation PPTX;slide 1;« Présentation d’équipe — un geste ciblé, jamais systématique »;Écran 23 / provenance + ressource PPTX;Présent;Ajouté en v3.
+Présentation PPTX;slide 5;« Toujours dans cet ordre — chaque étape n’est franchie que si nécessaire »;Écran 8 / algorithme complet;Présent;Rendu visuellement par l’algorithme v3.
+Présentation PPTX;slide 8;« soin à 4 mains si possible »;Écran 11;Présent;Ajouté en v3 comme formulation du support d’équipe.
+Présentation PPTX;slide 12;Protocole complet disponible dans le classeur qualité du service;Écran 23 / provenance;Présent;Ajouté en v3.
+Présentation PPTX;médias;Pictogrammes du support d’équipe;Écrans 2, 10, 11, 19;Réutilisés lorsque pertinents;11 pictogrammes sources intégrés dans assets/source-icons.
