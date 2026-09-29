@@ -199,3 +199,15 @@ button.choice:hover{border-color:#9dc2c8;background:white;box-shadow:var(--shado
 .choice.bad .choice-key{background:#f1d4d4;color:var(--red)}
 .case-progress{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-dark);margin:4px 0 10px}
 .result-panel{max-width:680px;background:linear-gradient(145deg,#f5fbfb,#fbfcfc)}
+
+
+/* v3 — enrichissement visuel fondé sur le corpus source */
+.media-wide{padding:14px;background:linear-gradient(180deg,#fbfdfd,#f5f9fa)}
+.media-wide img{width:100%}
+.risk-detail{display:block;font-size:12.5px;line-height:1.35;font-weight:560;color:#66808c;margin-top:5px}
+.source-provenance{margin-top:32px;border:1px solid var(--line);border-radius:16px;padding:20px;background:#fbfcfc}
+.source-provenance h3{margin:0 0 14px}
+.source-row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;padding:9px 0;border-top:1px solid #e5edef;font-size:14px;color:#456675}
+.source-row:first-of-type{border-top:0}
+.source-row strong{color:var(--ink)}
+@media(max-width:860px){.source-row{grid-template-columns:1fr;gap:3px}.media-wide{padding:8px;margin-left:-5px;margin-right:-5px}}
